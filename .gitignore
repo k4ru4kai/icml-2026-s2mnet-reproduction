@@ -31,6 +31,9 @@ checkpoints/
 checkpoint
 *.ckpt
 *.ckpt.*
+*.weights.h5
+*.index
+*.data-?????-of-?????
 *.h5
 *.hdf5
 *.keras
@@ -48,6 +51,15 @@ mlruns/
 /repro/data/raw/
 /repro/data/interim/
 /repro/data/processed/
+# Phase 2B DRIVE local layout (all generated or restricted content)
+/data/archives/
+/data/raw/
+/data/manifests/
+/data/derived/
+/data/processed/
+/data/reports/
+**/drive_manifest*.csv
+**/drive_integrity_report*.json
 *.tfrecord
 *.tfrecords
 *.npy

@@ -25,6 +25,63 @@ has no source line numbering. Source-code and configuration references use
 exact file and line locations. A statement from one evidence category must not
 be silently promoted into another category.
 
+## Offline acquisition and integrity scaffolding
+
+The reproduction-owned Phase 2B tooling defines this local layout:
+
+```text
+data/
+├── archives/drive/              # Original downloaded archive; immutable
+├── raw/drive/                   # Extracted authoritative files; immutable
+├── manifests/drive/             # Generated local file inventory and split manifest
+├── derived/drive/               # Derived representations, if later approved
+├── processed/drive/             # Reproducible processed inputs, if later approved
+└── reports/drive/               # Generated structural integrity reports
+```
+
+All directories in this layout are local-only and ignored by Git. Generated
+manifests and reports contain local dataset records and are also ignored by
+filename pattern. Raw files must never be renamed, normalized, overwritten, or
+modified by integrity tooling. Any future derived or processed representation
+must be reproducible from the raw hashes recorded in the manifest.
+
+`repro/data/drive_integrity.py` is an offline-only structural checker and
+deterministic manifest generator. It requires the dataset root explicitly and
+does not contain acquisition, network, preprocessing, training, or evaluation
+logic. Its expected raw structure is:
+
+```text
+<dataset-root>/
+├── training/
+│   ├── images/                  # IDs 21-40: NN_training.tif or NN_training.tiff
+│   ├── 1st_manual/              # IDs 21-40: NN_manual1.gif
+│   └── mask/                    # IDs 21-40: NN_training_mask.gif
+└── test/
+    ├── images/                  # IDs 01-20: NN_test.tif or NN_test.tiff
+    ├── 1st_manual/              # IDs 01-20: NN_manual1.gif
+    └── mask/                    # IDs 01-20: NN_test_mask.gif
+```
+
+The checker validates structure, IDs, correspondence, header dimensions, file
+formats, and SHA-256 hashes without modifying the dataset root. A successful
+result establishes only that the inspected local tree is structurally
+consistent with these expectations. It does **not** establish dataset
+authenticity, authoritative provenance, licensing or terms compliance,
+annotation semantics, or suitability for training. Those matters require
+separate human review against the authoritative source.
+
+The command shape, for later use only after acquisition is separately approved,
+is:
+
+```bash
+python -m repro.data.drive_integrity \
+  --dataset-root /path/to/immutable/drive \
+  --provenance-source "authoritative source pending verification"
+```
+
+The protocol remains provisional. This structural tool performs no training or
+evaluation and does not authorize dataset acquisition.
+
 ## 1. Behavior confirmed from the released implementation
 
 ### Configuration and data discovery
@@ -476,7 +533,7 @@ No acquisition may begin until every pre-download item is reviewed.
 - [ ] Verify one-to-one image / first-manual vessel-mask / FOV-mask
       correspondence, dimensions, decodability, and binary-mask values.
 - [ ] Verify that `/data/` and reproduction raw/interim/processed data paths are
-      excluded by `.gitignore:45-50`. Run an ignore check before and after
+      excluded by `.gitignore:48-70`. Run an ignore check before and after
       acquisition, and never use force-add for dataset content.
 - [ ] Produce and review the manifest and integrity report before allowing any
       preprocessing, training, validation, or test evaluation.
