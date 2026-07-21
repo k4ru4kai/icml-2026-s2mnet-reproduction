@@ -1,0 +1,3 @@
+[submodule "official_repo"]
+	path = official_repo
+	url = https://github.com/sanaullah-ashfat/S2M-Net-Spectral-Spatial-Mixing-for-Medical-Segmentation.git

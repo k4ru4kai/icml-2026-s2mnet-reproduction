@@ -1,0 +1,111 @@
+# Python bytecode and tooling
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments and package caches
+.venv/
+.venv-*/
+venv/
+env/
+/.cache/
+.uv-cache/
+pip-wheel-metadata/
+
+# TensorFlow, Keras, and experiment outputs
+events.out.tfevents.*
+.tensorboard-info/
+checkpoints/
+checkpoint
+*.ckpt
+*.ckpt.*
+*.h5
+*.hdf5
+*.keras
+saved_model/
+saved_model.pb
+keras_tuner/
+wandb/
+mlruns/
+/runs/
+/outputs/
+
+# Datasets and generated arrays
+/data/
+/datasets/
+/repro/data/raw/
+/repro/data/interim/
+/repro/data/processed/
+*.tfrecord
+*.tfrecords
+*.npy
+*.npz
+*.parquet
+*.arrow
+*.pkl
+*.pickle
+
+# Results: keep curated tables/figures explicit, ignore logs and bulky payloads
+/results/figures/**
+!/results/figures/.gitkeep
+/results/logs/**
+!/results/logs/.gitkeep
+/results/**/*.tmp
+/results/**/*.bin
+/results/**/*.tar
+/results/**/*.tar.gz
+/results/**/*.zip
+
+# Trackio local databases, exports, media, and sync state
+.trackio/*.db
+.trackio/**/*.db
+.trackio/**/*.parquet
+.trackio/media/
+.trackio/logbook/.sync_lock
+.trackio/logbook/.sync_pending
+.trackio/logbook/.sync.log
+
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+secrets*.yaml
+secrets*.yml
+.netrc
+.pypirc
+
+# Editors and operating systems
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.directory
+.Trash-*/
+
+# Local assistant/tool state
+.agents/
+.codex/
+
+# Downloaded paper/source cache; provenance belongs in documentation
+/sources/

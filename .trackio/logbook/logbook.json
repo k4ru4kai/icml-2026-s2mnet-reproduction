@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "title": "Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation",
+  "emoji": "🎯",
+  "space_id": "K4ru4k4i/eh48NIgu9z",
+  "paper": {
+    "openreview_id": "eh48NIgu9z",
+    "arxiv_id": "2601.01285"
+  },
+  "tags": [
+    "icml2026-repro",
+    "paper-eh48NIgu9z"
+  ],
+  "updated_at": "2026-07-17T20:59:18+00:00",
+  "root": {
+    "slug": "index",
+    "title": "Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation",
+    "file": "pages/index.md",
+    "children": [
+      {
+        "slug": "introduction-and-scope",
+        "title": "Introduction and scope",
+        "file": "pages/introduction-and-scope/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-sstm-truncated-fft-and-spectral-energy",
+        "title": "Claim - SSTM truncated FFT and spectral energy",
+        "file": "pages/claim-sstm-truncated-fft-and-spectral-energy/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-drive-full-model-versus-no-sstm",
+        "title": "Claim - DRIVE Full Model versus No-SSTM",
+        "file": "pages/claim-drive-full-model-versus-no-sstm/page.md",
+        "children": []
+      }
+    ]
+  },
+  "agent_view_tokens": 2350,
+  "revision": "1784321958453642784"
+}
