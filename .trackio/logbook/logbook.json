@@ -11,7 +11,7 @@
     "icml2026-repro",
     "paper-eh48NIgu9z"
   ],
-  "updated_at": "2026-07-17T20:59:18+00:00",
+  "updated_at": "2026-07-21T20:38:58+00:00",
   "root": {
     "slug": "index",
     "title": "Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation",
@@ -21,6 +21,12 @@
         "slug": "introduction-and-scope",
         "title": "Introduction and scope",
         "file": "pages/introduction-and-scope/page.md",
+        "children": []
+      },
+      {
+        "slug": "phase-2a-synthetic-full-model-validation",
+        "title": "Phase 2A - Synthetic Full-Model Validation",
+        "file": "pages/phase-2a-synthetic-full-model-validation/page.md",
         "children": []
       },
       {
@@ -37,6 +43,6 @@
       }
     ]
   },
-  "agent_view_tokens": 2350,
-  "revision": "1784321958453642784"
+  "agent_view_tokens": 3000,
+  "revision": "1784666338190516476"
 }
