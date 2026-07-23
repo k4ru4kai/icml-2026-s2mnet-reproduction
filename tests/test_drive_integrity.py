@@ -14,7 +14,11 @@ from pathlib import Path
 import pytest
 
 from repro.data.drive_integrity import (
+    AUTHORITATIVE_PROFILE,
     MANIFEST_FIELDS,
+    TEST_ANNOTATION_AVAILABILITY,
+    TRAINING_ANNOTATION_AVAILABILITY,
+    UNAVAILABLE_ANNOTATION_OBSERVER,
     DriveIntegrityError,
     main,
     validate_drive,
@@ -49,7 +53,6 @@ def _build_synthetic_tree(root: Path) -> None:
         "training/1st_manual",
         "training/mask",
         "test/images",
-        "test/1st_manual",
         "test/mask",
     ):
         (root / relative_directory).mkdir(parents=True, exist_ok=True)
@@ -57,7 +60,6 @@ def _build_synthetic_tree(root: Path) -> None:
     for image_id in range(1, 21):
         identifier = f"{image_id:02d}"
         _write_tiff_header(root / f"test/images/{identifier}_test.tif")
-        _write_gif_header(root / f"test/1st_manual/{identifier}_manual1.gif")
         _write_gif_header(root / f"test/mask/{identifier}_test_mask.gif")
 
     for image_id in range(21, 41):
@@ -67,7 +69,9 @@ def _build_synthetic_tree(root: Path) -> None:
         _write_gif_header(root / f"training/mask/{identifier}_training_mask.gif")
 
 
-def test_valid_synthetic_tree_generates_deterministic_outputs(tmp_path: Path) -> None:
+def test_authoritative_tree_without_test_annotations_is_valid_and_deterministic(
+    tmp_path: Path,
+) -> None:
     dataset_root = tmp_path / "synthetic_drive_structure"
     output_root = tmp_path / "generated"
     _build_synthetic_tree(dataset_root)
@@ -87,13 +91,32 @@ def test_valid_synthetic_tree_generates_deterministic_outputs(tmp_path: Path) ->
     assert sum(record.assigned_split == "test" for record in result.records) == 20
     assert sum(record.assigned_split == "train" for record in result.records) == 16
     assert sum(record.assigned_split == "validation" for record in result.records) == 4
-    assert {record.annotation_observer for record in result.records} == {"first_manual"}
+    test_records = [record for record in result.records if record.assigned_split == "test"]
+    labelled_records = [
+        record for record in result.records if record.assigned_split != "test"
+    ]
+    assert {
+        record.annotation_availability for record in test_records
+    } == {TEST_ANNOTATION_AVAILABILITY}
+    assert {
+        record.annotation_availability for record in labelled_records
+    } == {TRAINING_ANNOTATION_AVAILABILITY}
+    assert {
+        record.annotation_observer for record in test_records
+    } == {UNAVAILABLE_ANNOTATION_OBSERVER}
+    assert {record.annotation_observer for record in labelled_records} == {
+        "first_manual"
+    }
+    assert all(not record.relative_vessel_mask_path for record in test_records)
+    assert all(not record.sha256_vessel_mask for record in test_records)
+    assert all(record.relative_vessel_mask_path for record in labelled_records)
     assert {record.original_dimensions for record in result.records} == {"7x11x3"}
     assert {record.file_format for record in result.records} == {
-        "image:tiff|vessel_mask:gif|fov_mask:gif"
+        "image:tiff|vessel_mask:gif|fov_mask:gif",
+        "image:tiff|vessel_mask:not_distributed|fov_mask:gif",
     }
     assert all(len(record.sha256_image) == 64 for record in result.records)
-    assert all(len(record.sha256_vessel_mask) == 64 for record in result.records)
+    assert all(len(record.sha256_vessel_mask) == 64 for record in labelled_records)
     assert all(len(record.sha256_fov_mask) == 64 for record in result.records)
 
     first_manifest = write_manifest(result, output_root / "manifest-a.csv")
@@ -109,8 +132,12 @@ def test_valid_synthetic_tree_generates_deterministic_outputs(tmp_path: Path) ->
     assert tuple(reader.fieldnames or ()) == MANIFEST_FIELDS
     assert len(rows) == 40
     assert rows[0]["image_id"] == "01"
+    assert rows[0]["relative_vessel_mask_path"] == ""
+    assert rows[0]["annotation_availability"] == TEST_ANNOTATION_AVAILABILITY
     assert rows[-1]["image_id"] == "40"
+    assert rows[-1]["annotation_availability"] == TRAINING_ANNOTATION_AVAILABILITY
     report = json.loads(first_report.read_text(encoding="utf-8"))
+    assert report["distribution_profile"] == AUTHORITATIVE_PROFILE
     assert report["protocol_status"] == "PROVISIONAL"
     assert report["structural_validation_status"] == "pass"
     assert report["record_count"] == 40
@@ -166,8 +193,74 @@ def test_missing_duplicate_and_unexpected_ids_are_reported(tmp_path: Path) -> No
     assert "Missing image for test ID 01" in errors
     assert "Duplicate image files for test ID 02" in errors
     assert "Unexpected test ID 99 for image" in errors
-    assert "Incomplete image/vessel/FOV correspondence for test ID 01" in errors
-    assert "Expected 40 complete records" in errors
+    assert "Incomplete image/FOV correspondence for test ID 01" in errors
+    assert "Expected 40 split-complete records" in errors
+
+
+def test_missing_training_annotation_fails_without_manifest(tmp_path: Path) -> None:
+    dataset_root = tmp_path / "synthetic_drive_structure"
+    manifest_path = tmp_path / "generated/drive_manifest.csv"
+    _build_synthetic_tree(dataset_root)
+    (dataset_root / "training/1st_manual/21_manual1.gif").unlink()
+
+    result = validate_drive(dataset_root)
+    errors = "\n".join(result.errors)
+
+    assert not result.ok
+    assert "Missing vessel annotation for training ID 21" in errors
+    assert (
+        "Incomplete image/vessel/FOV correspondence for training ID 21" in errors
+    )
+    with pytest.raises(
+        DriveIntegrityError,
+        match="Cannot write a manifest for a failed integrity result",
+    ):
+        write_manifest(result, manifest_path)
+    assert not manifest_path.exists()
+
+
+def test_unexpected_test_annotation_fails_without_manifest(tmp_path: Path) -> None:
+    dataset_root = tmp_path / "synthetic_drive_structure"
+    manifest_path = tmp_path / "generated/drive_manifest.csv"
+    _build_synthetic_tree(dataset_root)
+    test_annotation_directory = dataset_root / "test/1st_manual"
+    test_annotation_directory.mkdir(parents=True)
+    _write_gif_header(test_annotation_directory / "01_manual1.gif")
+
+    result = validate_drive(dataset_root)
+
+    assert not result.ok
+    assert any(
+        "Local test vessel annotations are not accepted under the authoritative "
+        "hidden-test profile: test/1st_manual/01_manual1.gif" in error
+        for error in result.errors
+    )
+    with pytest.raises(
+        DriveIntegrityError,
+        match="Cannot write a manifest for a failed integrity result",
+    ):
+        write_manifest(result, manifest_path)
+    assert not manifest_path.exists()
+
+
+def test_missing_test_fov_mask_fails_without_manifest(tmp_path: Path) -> None:
+    dataset_root = tmp_path / "synthetic_drive_structure"
+    manifest_path = tmp_path / "generated/drive_manifest.csv"
+    _build_synthetic_tree(dataset_root)
+    (dataset_root / "test/mask/01_test_mask.gif").unlink()
+
+    result = validate_drive(dataset_root)
+    errors = "\n".join(result.errors)
+
+    assert not result.ok
+    assert "Missing FOV mask for test ID 01" in errors
+    assert "Incomplete image/FOV correspondence for test ID 01" in errors
+    with pytest.raises(
+        DriveIntegrityError,
+        match="Cannot write a manifest for a failed integrity result",
+    ):
+        write_manifest(result, manifest_path)
+    assert not manifest_path.exists()
 
 
 def test_dimension_mismatch_and_raw_output_write_are_rejected(tmp_path: Path) -> None:

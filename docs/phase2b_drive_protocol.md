@@ -10,13 +10,14 @@
 ## Scope and evidence policy
 
 The target claim is the DRIVE Full Model versus No-SSTM ablation. This
-specification keeps five categories separate:
+specification keeps six categories separate:
 
-1. behavior confirmed from the released implementation;
-2. protocol statements in arXiv v1 of the paper;
-3. protocol statements found only in the current official README;
-4. provisional reproduction decisions; and
-5. unresolved questions.
+1. current information verified on the public authoritative DRIVE site;
+2. information visible only after authentication and challenge participation;
+3. behavior confirmed from the released implementation;
+4. historical protocol statements in arXiv v1 of the paper;
+5. protocol statements found only in the current official README; and
+6. provisional reproduction decisions and unresolved questions.
 
 The released implementation is pinned at
 `3ec59668ab9b438ab9b170306d29b01e9270fd5a`. Paper references below point to
@@ -24,6 +25,62 @@ The released implementation is pinned at
 has no source line numbering. Source-code and configuration references use
 exact file and line locations. A statement from one evidence category must not
 be silently promoted into another category.
+
+The arXiv record was withdrawn on May 8, 2026. The authors' public withdrawal
+comment states that the current version contains issues that require careful
+revision before public dissemination. Consequently, arXiv v1 is treated here
+only as the historical claim under investigation, not as a current validated
+protocol or result.
+
+## Current authoritative DRIVE distribution and evaluation workflow
+
+### Directly verified public information
+
+The current public page at <https://drive.grand-challenge.org/> states that:
+
+- DRIVE contains 40 retinal images divided into 20 official training images
+  and 20 official test images;
+- one manual vessel segmentation is available for each official training image;
+- vessel annotations for official test IDs 01-20 are not distributed and remain
+  available only to the DRIVE evaluation service as its gold standard;
+- one FOV mask is provided for every retinal image;
+- predictions are submitted to the site as one ZIP containing 20 binary PNG
+  files named `1.png` through `20.png`;
+- the service calculates Dice separately for each test image using only pixels
+  inside the supplied FOV mask; and
+- the leaderboard score is the mean of those 20 per-image Dice values.
+
+These public statements define a hidden-test workflow. Local validation is
+possible only on the labelled official-training portion; local evaluation
+against IDs 01-20 is not part of the authoritative distribution.
+Provisionally pending inventory confirmation, the checker preserves the
+established identifier assignment: official test IDs 01-20 and official
+training IDs 21-40.
+
+### Information visible only after authentication
+
+The public navigation shows a locked Download page and a Join action. Access to
+the downloadable inventory therefore requires a Grand Challenge account and
+challenge participation. This checkpoint has not authenticated, joined,
+opened the participant-only page, or inspected its contents.
+
+### Pending authenticated verification
+
+The following must not be inferred from public prose or third-party archives:
+
+- exact archive names, checksums, inventory, and directory layout;
+- raw-distribution filename patterns and image or mask encodings;
+- binary-PNG encoding details beyond the public submission requirement;
+- applicable dataset-specific terms, required citation text, and account or
+  challenge conditions;
+- submission limits, quotas, reset behavior, and permitted use of leaderboard
+  feedback; and
+- redistribution permissions for archives, images, annotations, FOV masks,
+  derived data, or generated manifests.
+
+No redistribution permission is assumed. Third-party and historical
+fully-labelled test archives are outside this checkpoint and must not be
+accepted by the authoritative profile.
 
 ## Offline acquisition and integrity scaffolding
 
@@ -58,17 +115,23 @@ logic. Its expected raw structure is:
 │   └── mask/                    # IDs 21-40: NN_training_mask.gif
 └── test/
     ├── images/                  # IDs 01-20: NN_test.tif or NN_test.tiff
-    ├── 1st_manual/              # IDs 01-20: NN_manual1.gif
     └── mask/                    # IDs 01-20: NN_test_mask.gif
 ```
 
-The checker validates structure, IDs, correspondence, header dimensions, file
-formats, and SHA-256 hashes without modifying the dataset root. A successful
-result establishes only that the inspected local tree is structurally
-consistent with these expectations. It does **not** establish dataset
-authenticity, authoritative provenance, licensing or terms compliance,
-annotation semantics, or suitability for training. Those matters require
-separate human review against the authoritative source.
+These raw paths and filename patterns are provisional until the authenticated
+inventory is inspected. The default `authoritative_hidden_test` profile requires
+40 images and 40 corresponding FOV masks, but vessel annotations only for
+official training IDs 21-40. It neither requires nor accepts local vessel
+annotations for test IDs 01-20.
+
+The checker validates structure, split-specific correspondence, header
+dimensions, file formats, and SHA-256 hashes without modifying the dataset root.
+A successful result means that 40 records satisfy their split-specific rules:
+IDs 21-40 have image, vessel annotation, and FOV files, while IDs 01-20 have
+image and FOV files and explicit hidden-annotation metadata. It does **not**
+establish dataset authenticity, authoritative provenance, licensing or terms
+compliance, annotation semantics, or suitability for training. Those matters
+require separate human review against the authoritative source.
 
 The command shape, for later use only after acquisition is separately approved,
 is:
@@ -176,7 +239,11 @@ evaluation and does not authorize dataset acquisition.
 ## 2. Protocol statements found in the paper
 
 The following statements are attributed only to arXiv v1 unless independently
-confirmed elsewhere.
+confirmed elsewhere. Version 1 is the historical claim under investigation.
+The arXiv record shows a withdrawn v2 dated May 8, 2026 and reports the authors'
+reason: the work contained issues requiring careful revision before public
+dissemination. None of the v1 experimental statements below should be presented
+as a current or independently validated claim.
 
 ### General experimental setup, Sections 4.1 and 4.2
 
@@ -247,7 +314,7 @@ what the authors used.
 | Provisional decision | Evidence and conflict | Rationale | Status |
 |---|---|---|---|
 | Preserve official test IDs 01-20 untouched; assign 21-36 to training and 37-40 to fixed validation; never derive validation data from the official test set. | The paper states only that DRIVE has 40 images and does not give split IDs. The README is also silent. Released code requires separate directories but enforces no count, ID, or disjointness rule. | Preserve the official test boundary, prevent test leakage, and make checkpoint selection reproducible. | **Provisional** |
-| Use the first manual vessel annotation for every image. | Paper, README, YAML, and executable code do not identify an observer; the generic loader accepts one mask per image. | A single declared observer avoids mixing annotation policies across splits or variants. | **Provisional** |
+| Require a local first-manual vessel annotation only for official training IDs 21-40. Represent annotation availability for test IDs 01-20 as `not_distributed`; reject local test annotations under the authoritative profile. | The authoritative public page states that one manual segmentation is available for each training image and that no test annotations are made available. The released generic loader incorrectly assumes a local mask for every evaluated image. | Match the current authoritative hidden-test workflow and prevent accidental use of third-party or legacy test labels. | **Provisional pending authenticated inventory confirmation** |
 | Retain and integrity-check the supplied official FOV mask for every image. | Paper and README do not define FOV handling. Released code substitutes a centered circle and does not load supplied FOV files. | Preserve the dataset's validity domain and avoid an undocumented geometric approximation. | **Provisional** |
 | Use a reproduction-owned adapter and manifest; do not modify `official_repo` or silently reshape raw files for its generic loader. | Released discovery supports only `images/` and `masks/`, same-stem pairing, limited formats, no observer/FOV paths, and no split-integrity checks. | Keep upstream provenance intact while making every mapping and transformation auditable. | **Provisional** |
 | Use fixed complete validation images rather than the released stochastic validation-patch mechanism. | Released validation disables augmentation but still samples random positive-filtered patches. Paper and README do not define DRIVE validation sampling. | Stabilize checkpoint selection and evaluate the same anatomical content for both variants. | **Provisional** |
@@ -294,9 +361,11 @@ For `paper_section_5_3_reference`, provisionally use:
 | Maximum epochs | 100 | Directly specified by Section 5.3 and retinal YAML. | Section 4.2 says 45; README says 150. | Use the target section's explicit budget. | **Provisional** |
 | Dataset expansion | 30× | Directly specified by Section 5.3; default YAML and the README full-image example also contain 30×. | Section 4.2 describes 40 augmentations per sample; released retinal patch mode ignores `expansion_factor`. | Use the target section's explicit expansion. With 16 training images, this provisionally gives 480 augmented samples and 60 full batches per epoch. | **Provisional** |
 
-The Full Model and No-SSTM runs must use identical data, sample order,
-augmentations, loss, optimizer settings, checkpoint rule, threshold, and seeds.
-Only the SSTM ablation setting may differ.
+The deadline-focused primary experiment is exactly Full Model versus No-SSTM.
+The two variants must use identical data, sample order, augmentations, loss,
+optimizer settings, checkpoint rule, threshold, and the three frozen paired
+seeds. Only the SSTM ablation setting may differ. No optional sensitivity study
+may begin before this primary comparison is complete.
 
 ### Fields not fully specified by Section 5.3
 
@@ -310,10 +379,13 @@ Only the SSTM ablation setting may differ.
   example disagree with the released retinal-specific 256×256 patch path;
   Section 5.3 does not resolve which applies to DRIVE.
 - **Provisional choice:** Use 352×352 complete-image training for
-  `paper_section_5_3_reference`. At validation and test time, predict the entire
-  352×352 preprocessed image deterministically, resize the probability map back
-  to the original image dimensions, and calculate metrics on the original mask
-  and FOV grid. Record an explicit coverage assertion for every original pixel.
+  `paper_section_5_3_reference`. At validation and hidden-test prediction time,
+  predict the entire 352×352 preprocessed image deterministically and resize the
+  probability map back to the original image dimensions. Calculate local
+  metrics only for validation IDs 37-40, using their local annotations and FOV
+  masks. For test IDs 01-20, emit predictions for official server-side scoring;
+  no local ground-truth calculation is possible. Record an explicit coverage
+  assertion for every original pixel.
 - **Rationale:** This follows the paper's only explicit image-size statement and
   avoids the released test path's nominal sliding-window operation collapsing to
   one 256×256 patch. Native-resolution 256-patch overlap tiling belongs to the
@@ -396,8 +468,9 @@ Only the SSTM ablation setting may differ.
   not implemented. The README does not state a DRIVE decision threshold.
 - **Conflict:** There is no paper- or README-confirmed DRIVE threshold; 0.5 is
   supported only by default configuration and executable fallbacks.
-- **Provisional choice:** Fix the probability threshold at 0.5 for validation and
-  test. Do not tune it on test data.
+- **Provisional choice:** Fix the probability threshold at 0.5 for local
+  validation and for binary hidden-test prediction files. Do not tune it from
+  server feedback.
 - **Rationale:** It is the only explicit released threshold and avoids an
   unreported validation optimization.
 
@@ -442,43 +515,71 @@ Only the SSTM ablation setting may differ.
   and the released patch loader separately resets NumPy to 42.
 - **Conflict:** The README seed list is not paper-confirmed, and the executable
   data sampler does not consistently inherit the requested run seed.
-- **Provisional choice:** Use paired seeds `{42, 123, 456, 789, 2024}` for the
-  final comparison. Use independent, explicitly constructed RNG streams for
-  model initialization, training order, augmentation, and any sampling; derive
-  them deterministically from the run seed. Give Full Model and No-SSTM identical
-  sample and augmentation schedules within each seed.
-- **Rationale:** The README provides the only explicit five-seed set, and paired
-  deterministic schedules reduce irrelevant variance in the ablation difference.
-  The seed list remains README-derived, not paper-confirmed.
+- **Provisional choice:** Freeze paired seeds `{42, 123, 456}` for the
+  deadline-focused primary comparison. Use independent, explicitly constructed
+  RNG streams for model initialization, training order, augmentation, and any
+  sampling; derive them deterministically from the run seed. Give Full Model and
+  No-SSTM identical sample and augmentation schedules within each seed.
+- **Rationale:** These are the first three values in the README's only explicit
+  seed set. Three paired runs prioritize completion of the primary ablation
+  before the August 2, 2026 deadline while retaining a predefined repeated-run
+  analysis. The choice is reproduction-owned and README-derived, not
+  paper-confirmed; the remaining two README seeds are not part of this
+  checkpoint.
 
 ### Evaluation endpoint
 
 **Evidence:** The paper reports Dice but does not define the DRIVE pixel domain
-or aggregation. Released evaluation computes per-image hard metrics on the full
-resized square and does not use supplied FOV masks.
+or aggregation. Released evaluation computes per-image hard metrics on the
+full resized square and does not use supplied FOV masks. The current
+authoritative public page defines test scoring as per-image Dice inside the
+supplied FOV followed by the average of the 20 image scores.
 
-**Conflict:** The reported claim cannot be tied to either full-square or supplied
-FOV-only scoring, and released preprocessing does not guarantee native-grid
-coverage.
+**Conflict:** The historical reported claim cannot be tied to the released
+full-square evaluator or to the current authoritative server endpoint. Test
+ground truth is not locally distributed, so a local score on IDs 01-20 would
+necessarily use a non-authoritative source.
 
-**Rationale:** A supplied-FOV, per-image macro endpoint makes both pixel validity
-and image weighting explicit while preventing test-driven selection.
+**Rationale:** The primary comparison needs a fixed local validation endpoint
+for model selection and a separately labelled authoritative hidden-test
+endpoint for final evaluation.
 
-**Status:** **Provisional.** The endpoint is:
+**Status:** **Provisional.** The two endpoints are deliberately separate.
 
-- Evaluate every validation and test image completely and deterministically.
-- Assert that the inference coverage map is nonzero at every evaluated pixel.
-- Retain predictions as probabilities until thresholding at 0.5.
-- For each image, restrict both prediction and first-manual ground truth to pixels
-  where the supplied official FOV mask equals one.
-- Compute hard Dice separately for each image inside that FOV.
-- Macro-average the per-image Dice values across IDs 01-20 for the test result.
-- Never select a checkpoint, threshold, transform, or protocol using test IDs.
-- Report Full Model and No-SSTM with exactly the same evaluator.
+#### Local validation evaluation: IDs 37-40
 
-This FOV-restricted macro hard Dice is the primary endpoint. Any soft Dice, IoU,
-precision, recall, specificity, F1, topology, boundary, or TTA metric is
-secondary and must be labeled with its exact domain and aggregation rule.
+- Evaluate all four fixed validation images completely and deterministically.
+- Assert that inference coverage is nonzero at every evaluated pixel.
+- Retain predictions as probabilities until thresholding at the fixed value 0.5.
+- Restrict prediction and local first-manual ground truth to pixels where the
+  supplied FOV mask equals one.
+- Compute hard Dice separately for each image and macro-average the four values.
+- Use this predefined metric for checkpoint selection, with earliest epoch as
+  the deterministic tie-breaker.
+- Preserve the four per-image values and use a paired per-image analysis for
+  Full Model minus No-SSTM within every frozen seed.
+
+#### Official server-side evaluation: IDs 01-20
+
+- Generate predictions without accessing local test vessel annotations.
+- Before any upload, freeze the checkpoint, threshold, transform, and protocol
+  from the training and fixed-validation process.
+- The publicly verified submission specification is one ZIP containing 20
+  binary PNG predictions named `1.png`, `2.png`, through `20.png`.
+- The DRIVE service calculates Dice separately for each image using only pixels
+  inside the supplied FOV; the final score is the mean of those 20 Dice values.
+- Do not use leaderboard feedback for checkpoint selection, threshold tuning,
+  protocol selection, or optional sensitivity studies.
+- Apply exactly the same prediction and packaging procedure to Full Model and
+  No-SSTM, subject to authenticated confirmation that the required submissions
+  are permitted.
+
+The FOV-restricted macro hard Dice on validation IDs 37-40 is the local primary
+endpoint; the server-returned FOV-restricted mean Dice on IDs 01-20 is the
+authoritative test endpoint. They must never be conflated. Any soft Dice, IoU,
+precision, recall, specificity, F1, topology, boundary, TTA, or sensitivity
+metric is secondary and must wait until the six-run paired primary comparison
+is complete.
 
 ## 5. Planned dataset manifest
 
@@ -490,21 +591,25 @@ least these fields:
 | `image_id` | Canonical two-digit DRIVE ID. |
 | `assigned_split` | Exactly one of `train`, `validation`, or `test`. |
 | `relative_image_path` | Path relative to the preserved dataset root. |
-| `relative_vessel_mask_path` | Path to the selected manual vessel annotation. |
+| `relative_vessel_mask_path` | Path to the selected manual vessel annotation for IDs 21-40; empty for hidden-test IDs 01-20. |
 | `relative_fov_mask_path` | Path to the supplied official FOV mask. |
-| `annotation_observer` | Explicit observer identity; provisionally `first_manual`. |
+| `annotation_observer` | `first_manual` for IDs 21-40; documented sentinel `not_distributed` for IDs 01-20. |
+| `annotation_availability` | `available_authoritative_distribution` for IDs 21-40; documented sentinel `not_distributed` for IDs 01-20, whose gold standard remains on the official server. |
 | `original_dimensions` | Original height, width, and channel count. |
-| `file_format` | Detected container/extension for image and masks. |
+| `file_format` | Detected image and FOV containers; vessel format is `not_distributed` for IDs 01-20. |
 | `sha256_image` | SHA-256 of the raw image file. |
-| `sha256_vessel_mask` | SHA-256 of the raw vessel-mask file. |
+| `sha256_vessel_mask` | SHA-256 of the raw vessel annotation for IDs 21-40; empty for IDs 01-20. |
 | `sha256_fov_mask` | SHA-256 of the raw FOV-mask file. |
 | `provenance_source` | Authoritative source identifier, acquisition date, and archive identity or revision. |
 | `integrity_check_status` | `pending`, `pass`, or `fail`, with failures blocking use. |
 
-Integrity checks must verify unique IDs, the 16/4/20 assigned counts, no
-cross-split path or hash overlap, readable files, matching spatial dimensions,
-binary vessel and FOV masks after decoding, one first-manual annotation per
-image, one FOV mask per image, and exactly one manifest row per expected ID.
+Successful validation means exactly 40 records meeting split-specific
+requirements, not 40 fully annotated records. Integrity checks must verify
+unique IDs; the 16/4/20 assigned counts; 40 readable images; 40 readable,
+dimension-matched FOV masks; one readable, dimension-matched first-manual
+annotation for every ID 21-40; no accepted local vessel annotation for any ID
+01-20; explicit hidden-annotation fields for each test record; and exactly one
+record per expected ID. Any failure blocks manifest creation.
 
 ## 6. Pre-download acquisition checklist
 
@@ -513,15 +618,16 @@ No acquisition may begin until every pre-download item is reviewed.
 - [ ] Identify a legitimate authoritative DRIVE source operated by the dataset
       owner or its designated institutional host; record the exact source page
       and do not substitute an unverified mirror silently.
-- [ ] Confirm the expected archive identity and contents before transfer: 20
-      official training images, 20 official test images, manual vessel
-      annotations including the first observer, and a corresponding FOV mask for
-      every image.
+- [ ] After authentication and joining the challenge, confirm the expected
+      archive identity and contents before transfer: 40 retinal images, 40 FOV
+      masks, and vessel annotations only for official training IDs 21-40.
 - [ ] Review the license, registration conditions, citation requirements,
       redistribution limits, and terms of use. Record the review outcome without
       publishing credentials or restricted text.
-- [ ] Confirm that the anticipated image, vessel-mask, and FOV-mask filenames or
-      IDs can be paired unambiguously before writing an adapter.
+- [ ] Confirm raw filename patterns, encodings, directory layout, archive
+      inventory, submission limits, and permitted redistribution from the
+      authenticated pages before treating the provisional checker profile as
+      authoritative.
 - [ ] Define a raw-data location under ignored `data/` storage. Preserve the
       downloaded archive and extracted raw files byte-for-byte; never normalize,
       rename, or overwrite the only raw copy.
@@ -530,38 +636,70 @@ No acquisition may begin until every pre-download item is reviewed.
 - [ ] Verify the expected official split: test IDs 01-20 and training IDs 21-40.
       Apply the reproduction-owned 21-36 / 37-40 train/validation assignment only
       in the manifest or derived view; do not alter the official test set.
-- [ ] Verify one-to-one image / first-manual vessel-mask / FOV-mask
-      correspondence, dimensions, decodability, and binary-mask values.
+- [ ] Verify image / FOV correspondence for all 40 IDs and image /
+      first-manual-vessel / FOV correspondence only for IDs 21-40. Confirm that
+      no test vessel annotations are present in or accepted from the
+      authoritative distribution.
 - [ ] Verify that `/data/` and reproduction raw/interim/processed data paths are
       excluded by `.gitignore:48-70`. Run an ignore check before and after
       acquisition, and never use force-add for dataset content.
-- [ ] Produce and review the manifest and integrity report before allowing any
-      preprocessing, training, validation, or test evaluation.
+- [ ] Produce and review the 40-record split-specific manifest and integrity
+      report before allowing any preprocessing or training.
+- [ ] Separately confirm the submission terms and limits before any official
+      test upload. A local manifest pass does not authorize network submission.
 
-## 7. Unresolved questions
+## 7. Deadline-focused primary comparison
+
+The single primary experiment is Full Model versus No-SSTM under identical
+conditions. Freeze the train/validation/hidden-test IDs, preprocessing,
+augmentation schedule, optimizer and loss settings, checkpoint rule, threshold,
+FOV-restricted metrics, and paired seeds `{42, 123, 456}` before the first run.
+Complete all six runs and the paired per-image analysis before starting any
+optional sensitivity study.
+
+As of July 23, 2026, this comparison can be completed before the ICML Agent
+Repro Challenge deadline of Sunday, August 2, 2026 only if authenticated
+inventory and terms review, authorized acquisition, adapter validation, a
+short compute smoke test, and the six primary runs begin promptly. The local
+comparison on fixed IDs 37-40 is scientifically interpretable as a predefined
+paired ablation but has limited external validity because it contains only four
+images and also supplies the checkpoint-selection metric. The independent
+authoritative test result on IDs 01-20 remains conditional on authenticated
+submission access and limits. If the server workflow cannot be verified or does
+not permit all required submissions, report only the local validation
+comparison and do not substitute third-party test annotations.
+
+This is a feasibility judgment, not authorization to acquire data, train, or
+submit predictions.
+
+## 8. Unresolved questions
 
 1. What authoritative archive name, version, checksum, and terms currently apply
    to DRIVE acquisition?
 2. What exact raw filenames, encodings, and directory layout will the
    authoritative source provide?
-3. Can the authors confirm the exact DRIVE train/validation split and whether the
-   first manual annotation was used?
-4. Did the reported DRIVE results use supplied FOV masks, and was loss or only
+3. After authentication, does the downloadable inventory contain exactly 40
+   images, 40 FOV masks, and first-manual vessel annotations only for IDs 21-40?
+4. What citation, registration, challenge-participation, submission-limit, and
+   redistribution conditions apply?
+5. Can the authors confirm the reproduction-owned 21-36 / 37-40
+   train/validation split and whether the first manual annotation was used?
+6. Did the reported DRIVE results use supplied FOV masks, and was loss or only
    evaluation restricted to the FOV?
-5. Does Section 4.1's 352×352 Lanczos statement apply unchanged to the Section
+7. Does Section 4.1's 352×352 Lanczos statement apply unchanged to the Section
    5.3 DRIVE ablation?
-6. Did the Section 5.3 30× expansion use the Section 4.1 augmentation pipeline,
+8. Did the Section 5.3 30× expansion use the Section 4.1 augmentation pipeline,
    another pipeline, or the released retinal patch augmentation?
-7. Was Section 5.3 trained for every one of the 100 epochs, or was early stopping
+9. Was Section 5.3 trained for every one of the 100 epochs, or was early stopping
    used? Which validation metric and tie-breaking rule selected the checkpoint?
-8. Was the DRIVE test threshold fixed at 0.5, selected on validation, or chosen by
+10. Was the DRIVE test threshold fixed at 0.5, selected on validation, or chosen by
    another rule?
-9. Was TTA used for the reported DRIVE ablation result?
-10. Did the Full Model versus No-SSTM row use the complete learned and
+11. Was TTA used for the reported DRIVE ablation result?
+12. Did the Full Model versus No-SSTM row use the complete learned and
     morphology-modulated MASL configuration?
-11. Which five seeds produced the paper's mean and standard deviation, and were
+13. Which five seeds produced the paper's mean and standard deviation, and were
     data order and augmentations paired across ablations?
-12. Should the primary paper-reference evaluator score on the original image
+14. Should the primary paper-reference evaluator score on the original image
     grid after inverse resizing, or on the 352×352 grid? The current provisional
     decision uses the original grid and must remain labeled as such.
 
