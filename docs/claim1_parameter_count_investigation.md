@@ -16,6 +16,61 @@ with TensorFlow 2.15.1. Counts were calculated in two independent ways:
 
 The two methods agreed for both builds.
 
+## Executable audit closure
+
+The completed build-only verification is executable and versioned through:
+
+- `repro/diagnostics/verify_claim1_architecture.py`, the audit entry point;
+- `tests/test_claim1_architecture_audit.py`, focused tests for counting,
+  ratios, instantiated-architecture checks, pinned ledgers, and deterministic
+  serialization; and
+- `results/audits/claim1_architecture_parameters.json`, the deterministic
+  machine-readable evidence.
+
+Run the audit from the project environment with:
+
+```bash
+./.venv/bin/python repro/diagnostics/verify_claim1_architecture.py
+```
+
+`CLAIM1_AUDIT_STATUS=PASS` means that the verification procedure and its
+internal expected-versus-observed checks passed. It does **not** mean that
+the complete paper claim was reproduced.
+
+The audit executes the released TensorFlow constructors for S2M-Net and the
+bundled TensorFlow TransUNet, independently sums the products of their
+parameter shapes, and keeps those runtime results separate from transparent
+parameter ledgers and paper/README-only reports:
+
+| Evidence | Method | Total parameters | Ratio to 352 × 352 S2M-Net |
+|---|---|---:|---:|
+| S2M-Net, 352 × 352 RGB, one class | Runtime TensorFlow constructor plus independent shape sum | **4,791,544** = 4,768,920 trainable + 22,624 non-trainable | 1.000× |
+| S2M-Net, 256 × 256 RGB, one class | Runtime TensorFlow constructor plus independent shape sum | **4,766,008** = 4,743,384 trainable + 22,624 non-trainable | 0.994671× |
+| Bundled TensorFlow TransUNet, Keras-tracked variables | Runtime TensorFlow constructor plus independent tracked-variable shape sum | **5,437,825** | 1.134879× |
+| Bundled TensorFlow TransUNet, including untracked positional embedding | Runtime constructor count plus an explicit 495,616-parameter tensor ledger | **5,933,441** | 1.238315× |
+| Official TransUNet `R50-ViT-B_16`, 224 × 224, nine classes | Transparent parameter ledger from pinned commit `26de0c4d9a5145589ea249d169af7f7130823e03`; upstream constructor not executed | **105,277,081** | 21.971432× |
+| Official Swin-Unet Tiny/lite, 224 × 224, nine classes | Transparent parameter ledger from pinned commit `1c8b3e860dfaa89c98fa8e5ad1d4abd2251744f9`; upstream constructor not executed | **27,168,900** | 5.670176× |
+| S2M-Net README TransUNet value | Externally reported rounded value only | **60.0M** | 12.522060× |
+| S2M-Net README Swin-Unet value | Externally reported rounded value only | **27.0M** | 5.634927× |
+
+The 25,536-parameter resolution-dependent difference is fully localized by
+variable identity:
+
+- `sstm_stage4/freq_weights:0`: **+18,240** parameters;
+- `sstm_stage5/freq_weights:0`: **+7,296** parameters.
+
+The same instantiated-model inspection verifies exactly five encoder stages
+with channels **{24, 32, 64, 80, 128}**.
+
+The Claim 1 verdict remains **Partially verified**, not falsified.
+The exact released count 4,791,544 conventionally rounds to approximately
+4.8M; the claimed 60M TransUNet configuration is not identified; the pinned
+official TransUNet ledger gives approximately 22× rather than 13×; and the
+bundled TransUNet including its untracked positional embedding gives only
+approximately 1.24×. The pinned official Swin-Unet ledger is compatible with
+approximately 6×, but the S2M-Net materials do not identify that exact
+comparison configuration.
+
 ## Finding in brief
 
 The stated Phase 2A count of **4,788,385 cannot be reproduced from the

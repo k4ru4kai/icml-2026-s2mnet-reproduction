@@ -1,0 +1,7148 @@
+{
+  "architecture_verification": {
+    "checks": {
+      "channels": true,
+      "mrfse_at_every_stage": true,
+      "resolutions": true,
+      "sstm_at_every_stage": true,
+      "stage_count": true,
+      "stage_indices": true
+    },
+    "expected": {
+      "channels": [
+        24,
+        32,
+        64,
+        80,
+        128
+      ],
+      "resolutions": [
+        176,
+        88,
+        44,
+        22,
+        11
+      ],
+      "stage_count": 5,
+      "stage_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "observed": {
+      "channels": [
+        24,
+        32,
+        64,
+        80,
+        128
+      ],
+      "resolutions": [
+        176,
+        88,
+        44,
+        22,
+        11
+      ],
+      "stage_count": 5,
+      "stage_indices": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "stages": [
+        {
+          "activation_layer": "enc1_act",
+          "channels": 24,
+          "mrfse_layer_present": true,
+          "output_shape": [
+            null,
+            176,
+            176,
+            24
+          ],
+          "resolution": [
+            176,
+            176
+          ],
+          "sstm_layer_present": true,
+          "stage": 1
+        },
+        {
+          "activation_layer": "enc2_act",
+          "channels": 32,
+          "mrfse_layer_present": true,
+          "output_shape": [
+            null,
+            88,
+            88,
+            32
+          ],
+          "resolution": [
+            88,
+            88
+          ],
+          "sstm_layer_present": true,
+          "stage": 2
+        },
+        {
+          "activation_layer": "enc3_act",
+          "channels": 64,
+          "mrfse_layer_present": true,
+          "output_shape": [
+            null,
+            44,
+            44,
+            64
+          ],
+          "resolution": [
+            44,
+            44
+          ],
+          "sstm_layer_present": true,
+          "stage": 3
+        },
+        {
+          "activation_layer": "enc4_act",
+          "channels": 80,
+          "mrfse_layer_present": true,
+          "output_shape": [
+            null,
+            22,
+            22,
+            80
+          ],
+          "resolution": [
+            22,
+            22
+          ],
+          "sstm_layer_present": true,
+          "stage": 4
+        },
+        {
+          "activation_layer": "enc5_act",
+          "channels": 128,
+          "mrfse_layer_present": true,
+          "output_shape": [
+            null,
+            11,
+            11,
+            128
+          ],
+          "resolution": [
+            11,
+            11
+          ],
+          "sstm_layer_present": true,
+          "stage": 5
+        }
+      ]
+    },
+    "status": "pass"
+  },
+  "audit": {
+    "audit_development_base_project_head": "45abc94e50f70d04c4bf11b5036480b9f58102e4",
+    "audit_script_sha256": "16daac79128baea3c193ac2c1e16cc4b6a0d73b42c9166ef28ffab11eae0ce56",
+    "frameworks": {
+      "python": "3.11.15",
+      "pytorch_available": false,
+      "tensorflow": "2.15.1"
+    },
+    "name": "Claim 1 architecture and parameter-count audit",
+    "official_repository_commit": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+    "official_repository_expected_commit": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+    "output_is_deterministic": true,
+    "scope": "build-only; no dataset, checkpoint, pretrained weights, or training",
+    "source_sha256": {
+      "docs/claim1_parameter_count_investigation.md": {
+        "expected_sha256": "3455e4378ca09e198e6f4c937a0eb7f831e1cc423736c3a959a6b86c140abc14",
+        "observed_sha256": "3455e4378ca09e198e6f4c937a0eb7f831e1cc423736c3a959a6b86c140abc14",
+        "status": "pass"
+      },
+      "official_repo/configs/default.yaml": {
+        "expected_sha256": "08ce1c7d52a79d3e584868685aefb6a970c0746f48d18d4e018fd40cda430cb6",
+        "observed_sha256": "08ce1c7d52a79d3e584868685aefb6a970c0746f48d18d4e018fd40cda430cb6",
+        "status": "pass"
+      },
+      "official_repo/s2mnet/models/baselines.py": {
+        "expected_sha256": "eaeff4dd074d6ccd399344907ac3335c296f6a4c64eba39c8b475a70dbbfaabf",
+        "observed_sha256": "eaeff4dd074d6ccd399344907ac3335c296f6a4c64eba39c8b475a70dbbfaabf",
+        "status": "pass"
+      },
+      "official_repo/s2mnet/models/blocks.py": {
+        "expected_sha256": "1cb072cb6abfc6e4ec7a201a15d1cd123f249bdf320b0cadd878493a8d6069d6",
+        "observed_sha256": "1cb072cb6abfc6e4ec7a201a15d1cd123f249bdf320b0cadd878493a8d6069d6",
+        "status": "pass"
+      },
+      "official_repo/s2mnet/models/s2mnet.py": {
+        "expected_sha256": "fd2fcda4d3b54aaa6dbe6dc088d4fd132e24ac6a4e59666c42592cc82b565b4a",
+        "observed_sha256": "fd2fcda4d3b54aaa6dbe6dc088d4fd132e24ac6a4e59666c42592cc82b565b4a",
+        "status": "pass"
+      }
+    },
+    "status": "pass"
+  },
+  "claim_subassertions": {
+    "s2mnet_has_approximately_4_7m_parameters": {
+      "assessment": "The exact released 352x352 count is verified, but 4,791,544 conventionally rounds to 4.8M rather than 4.7M.",
+      "observed_exact_count": 4791544,
+      "status": "partially_verified"
+    },
+    "s2mnet_has_five_encoder_stages_with_channels_24_32_64_80_128": {
+      "observed_channels": [
+        24,
+        32,
+        64,
+        80,
+        128
+      ],
+      "observed_stage_count": 5,
+      "status": "verified"
+    },
+    "s2mnet_is_approximately_13x_smaller_than_transunet": {
+      "assessment": "The reported 60.0M arithmetic is approximately 13x at integer precision, but its TransUNet configuration is absent. The pinned official default ledger gives about 22x instead.",
+      "official_default_ratio_using_exact_s2mnet": 21.971431546908,
+      "reported_60m_ratio_using_exact_s2mnet": 12.522059695163,
+      "status": "partially_verified"
+    },
+    "s2mnet_is_approximately_6x_smaller_than_swin_unet": {
+      "assessment": "Both ratios round to 6x at integer precision, and the official Tiny/lite ledger is close to 27.0M, but the S2M-Net materials do not identify that baseline configuration.",
+      "official_tiny_lite_ratio_using_exact_s2mnet": 5.670176460865,
+      "reported_27m_ratio_using_exact_s2mnet": 5.634926862823,
+      "status": "partially_verified"
+    }
+  },
+  "evidence_classes": {
+    "reported_external_value": "A rounded value stated by the paper or released README without an executable matching configuration.",
+    "runtime_constructor_plus_ledger": "A runtime model count was supplemented by a separately identified tensor that the constructor creates but Keras does not track.",
+    "runtime_model_constructor": "A real framework model constructor was executed and its tracked variables were counted.",
+    "transparent_parameter_ledger": "Every parameter tensor shape was derived from a pinned source configuration and summed; the upstream constructor was not executed."
+  },
+  "internal_verifications": [
+    {
+      "expected": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+      "name": "official_repository_commit",
+      "observed": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+      "status": "pass"
+    },
+    {
+      "expected": "",
+      "name": "official_repository_clean",
+      "observed": "",
+      "status": "pass"
+    },
+    {
+      "expected": "3455e4378ca09e198e6f4c937a0eb7f831e1cc423736c3a959a6b86c140abc14",
+      "name": "source_sha256:docs/claim1_parameter_count_investigation.md",
+      "observed": "3455e4378ca09e198e6f4c937a0eb7f831e1cc423736c3a959a6b86c140abc14",
+      "status": "pass"
+    },
+    {
+      "expected": "08ce1c7d52a79d3e584868685aefb6a970c0746f48d18d4e018fd40cda430cb6",
+      "name": "source_sha256:official_repo/configs/default.yaml",
+      "observed": "08ce1c7d52a79d3e584868685aefb6a970c0746f48d18d4e018fd40cda430cb6",
+      "status": "pass"
+    },
+    {
+      "expected": "eaeff4dd074d6ccd399344907ac3335c296f6a4c64eba39c8b475a70dbbfaabf",
+      "name": "source_sha256:official_repo/s2mnet/models/baselines.py",
+      "observed": "eaeff4dd074d6ccd399344907ac3335c296f6a4c64eba39c8b475a70dbbfaabf",
+      "status": "pass"
+    },
+    {
+      "expected": "1cb072cb6abfc6e4ec7a201a15d1cd123f249bdf320b0cadd878493a8d6069d6",
+      "name": "source_sha256:official_repo/s2mnet/models/blocks.py",
+      "observed": "1cb072cb6abfc6e4ec7a201a15d1cd123f249bdf320b0cadd878493a8d6069d6",
+      "status": "pass"
+    },
+    {
+      "expected": "fd2fcda4d3b54aaa6dbe6dc088d4fd132e24ac6a4e59666c42592cc82b565b4a",
+      "name": "source_sha256:official_repo/s2mnet/models/s2mnet.py",
+      "observed": "fd2fcda4d3b54aaa6dbe6dc088d4fd132e24ac6a4e59666c42592cc82b565b4a",
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 22624,
+        "total": 4766008,
+        "trainable": 4743384
+      },
+      "name": "s2mnet_256_expected_parameters",
+      "observed": {
+        "non_trainable": 22624,
+        "total": 4766008,
+        "trainable": 4743384
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 22624,
+        "total": 4791544,
+        "trainable": 4768920
+      },
+      "name": "s2mnet_352_expected_parameters",
+      "observed": {
+        "non_trainable": 22624,
+        "total": 4791544,
+        "trainable": 4768920
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 22624,
+        "total": 4766008,
+        "trainable": 4743384
+      },
+      "name": "s2mnet_256_constructor_vs_shape_sum",
+      "observed": {
+        "all_weights": 4766008,
+        "non_trainable_weights": 22624,
+        "trainable_weights": 4743384
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 22624,
+        "total": 4791544,
+        "trainable": 4768920
+      },
+      "name": "s2mnet_352_constructor_vs_shape_sum",
+      "observed": {
+        "all_weights": 4791544,
+        "non_trainable_weights": 22624,
+        "trainable_weights": 4768920
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "channels": [
+          24,
+          32,
+          64,
+          80,
+          128
+        ],
+        "resolutions": [
+          176,
+          88,
+          44,
+          22,
+          11
+        ],
+        "stage_count": 5,
+        "stage_indices": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "name": "s2mnet_encoder_architecture",
+      "observed": {
+        "channels": [
+          24,
+          32,
+          64,
+          80,
+          128
+        ],
+        "resolutions": [
+          176,
+          88,
+          44,
+          22,
+          11
+        ],
+        "stage_count": 5,
+        "stage_indices": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "stages": [
+          {
+            "activation_layer": "enc1_act",
+            "channels": 24,
+            "mrfse_layer_present": true,
+            "output_shape": [
+              null,
+              176,
+              176,
+              24
+            ],
+            "resolution": [
+              176,
+              176
+            ],
+            "sstm_layer_present": true,
+            "stage": 1
+          },
+          {
+            "activation_layer": "enc2_act",
+            "channels": 32,
+            "mrfse_layer_present": true,
+            "output_shape": [
+              null,
+              88,
+              88,
+              32
+            ],
+            "resolution": [
+              88,
+              88
+            ],
+            "sstm_layer_present": true,
+            "stage": 2
+          },
+          {
+            "activation_layer": "enc3_act",
+            "channels": 64,
+            "mrfse_layer_present": true,
+            "output_shape": [
+              null,
+              44,
+              44,
+              64
+            ],
+            "resolution": [
+              44,
+              44
+            ],
+            "sstm_layer_present": true,
+            "stage": 3
+          },
+          {
+            "activation_layer": "enc4_act",
+            "channels": 80,
+            "mrfse_layer_present": true,
+            "output_shape": [
+              null,
+              22,
+              22,
+              80
+            ],
+            "resolution": [
+              22,
+              22
+            ],
+            "sstm_layer_present": true,
+            "stage": 4
+          },
+          {
+            "activation_layer": "enc5_act",
+            "channels": 128,
+            "mrfse_layer_present": true,
+            "output_shape": [
+              null,
+              11,
+              11,
+              128
+            ],
+            "resolution": [
+              11,
+              11
+            ],
+            "sstm_layer_present": true,
+            "stage": 5
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "expected": 25536,
+      "name": "resolution_dependent_total_delta",
+      "observed": 25536,
+      "status": "pass"
+    },
+    {
+      "expected": [
+        {
+          "delta_352_minus_256": 18240,
+          "shape_256": [
+            16,
+            16,
+            80
+          ],
+          "shape_352": [
+            22,
+            22,
+            80
+          ],
+          "variable": "sstm_stage4/freq_weights:0"
+        },
+        {
+          "delta_352_minus_256": 7296,
+          "shape_256": [
+            8,
+            8,
+            128
+          ],
+          "shape_352": [
+            11,
+            11,
+            128
+          ],
+          "variable": "sstm_stage5/freq_weights:0"
+        }
+      ],
+      "name": "resolution_dependent_variables",
+      "observed": [
+        {
+          "delta_352_minus_256": 18240,
+          "shape_256": [
+            16,
+            16,
+            80
+          ],
+          "shape_352": [
+            22,
+            22,
+            80
+          ],
+          "variable": "sstm_stage4/freq_weights:0"
+        },
+        {
+          "delta_352_minus_256": 7296,
+          "shape_256": [
+            8,
+            8,
+            128
+          ],
+          "shape_352": [
+            11,
+            11,
+            128
+          ],
+          "variable": "sstm_stage5/freq_weights:0"
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "expected": [
+        {
+          "delta_352_minus_256": 18240,
+          "layer": "sstm_stage4"
+        },
+        {
+          "delta_352_minus_256": 7296,
+          "layer": "sstm_stage5"
+        }
+      ],
+      "name": "resolution_dependent_layers",
+      "observed": [
+        {
+          "delta_352_minus_256": 18240,
+          "layer": "sstm_stage4"
+        },
+        {
+          "delta_352_minus_256": 7296,
+          "layer": "sstm_stage5"
+        }
+      ],
+      "status": "pass"
+    },
+    {
+      "expected": 25536,
+      "name": "resolution_delta_fully_accounted_for",
+      "observed": 25536,
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 0,
+        "total": 5437825,
+        "trainable": 5437825
+      },
+      "name": "bundled_transunet_tracked_parameters",
+      "observed": {
+        "non_trainable": 0,
+        "total": 5437825,
+        "trainable": 5437825
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 0,
+        "total": 5437825,
+        "trainable": 5437825
+      },
+      "name": "bundled_transunet_constructor_vs_shape_sum",
+      "observed": {
+        "all_weights": 5437825,
+        "non_trainable_weights": 0,
+        "trainable_weights": 5437825
+      },
+      "status": "pass"
+    },
+    {
+      "expected": [],
+      "name": "bundled_transunet_position_embedding_is_untracked",
+      "observed": [],
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 0,
+        "total": 5933441,
+        "trainable": 5933441
+      },
+      "name": "bundled_transunet_inclusive_parameter_ledger",
+      "observed": {
+        "non_trainable": 0,
+        "total": 5933441,
+        "trainable": 5933441
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 0,
+        "total": 105277081,
+        "trainable": 105277081
+      },
+      "name": "official_transunet_parameter_ledger",
+      "observed": {
+        "non_trainable": 0,
+        "total": 105277081,
+        "trainable": 105277081
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "cup_decoder": 7387200,
+        "final_transformer_norm": 1536,
+        "hybrid_patch_embedding": 787200,
+        "hybrid_resnet_v2": 11894848,
+        "position_embedding": 150528,
+        "segmentation_head": 1305,
+        "transformer_blocks": 85054464
+      },
+      "name": "official_transunet_component_ledger",
+      "observed": {
+        "cup_decoder": 7387200,
+        "final_transformer_norm": 1536,
+        "hybrid_patch_embedding": 787200,
+        "hybrid_resnet_v2": 11894848,
+        "position_embedding": 150528,
+        "segmentation_head": 1305,
+        "transformer_blocks": 85054464
+      },
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "non_trainable": 0,
+        "total": 27168900,
+        "trainable": 27168900
+      },
+      "name": "official_swin_unet_parameter_ledger",
+      "observed": {
+        "non_trainable": 0,
+        "total": 27168900,
+        "trainable": 27168900
+      },
+      "status": "pass"
+    },
+    {
+      "expected": 218,
+      "name": "official_swin_unet_parameter_tensor_count",
+      "observed": 218,
+      "status": "pass"
+    },
+    {
+      "expected": {
+        "decoder_layers": 6219066,
+        "encoder_bottleneck_stages": 20406954,
+        "final_decoder_norm": 192,
+        "final_encoder_norm": 1536,
+        "final_patch_expand": 147648,
+        "patch_embedding": 4896,
+        "segmentation_head": 864,
+        "skip_concat_projections": 387744
+      },
+      "name": "official_swin_unet_component_ledger",
+      "observed": {
+        "decoder_layers": 6219066,
+        "encoder_bottleneck_stages": 20406954,
+        "final_decoder_norm": 192,
+        "final_encoder_norm": 1536,
+        "final_patch_expand": 147648,
+        "patch_embedding": 4896,
+        "segmentation_head": 864,
+        "skip_concat_projections": 387744
+      },
+      "status": "pass"
+    }
+  ],
+  "limitations_and_unresolved_ambiguities": [
+    "The released S2M-Net parameter count is resolution-dependent because SSTM allocates feature-size-clamped frequency grids.",
+    "The paper's exact TransUNet configuration and the provenance of the README's rounded 60.0M value remain unavailable.",
+    "The paper does not cite or configure the 2D Swin-Unet behind its comparison; the official Tiny/lite configuration is plausible but inferential.",
+    "PyTorch is unavailable, so the two upstream constructors were not executed in this environment; their counts are transparent per-tensor ledgers from pinned source, not runtime claims.",
+    "The bundled TensorFlow TransUNet creates its positional embedding as an untracked raw tf.Variable; Keras count_params excludes it.",
+    "Paper/README values are rounded reports and do not provide trainable/non-trainable partitions.",
+    "This is a build-only parameter audit. It does not validate training, checkpoints, data, segmentation quality, FLOPs, latency, or memory."
+  ],
+  "models": {
+    "bundled_transunet_352_including_untracked_position": {
+      "configuration": {
+        "input_shape": [
+          352,
+          352,
+          3
+        ],
+        "num_classes": 1
+      },
+      "constructor": "official_repo/s2mnet/models/baselines.py:TransUNet",
+      "constructor_executed": true,
+      "counting_method": "Keras-tracked runtime count plus product of the untracked raw tf.Variable position-embedding shape",
+      "evidence_class": "runtime_constructor_plus_ledger",
+      "expected_parameters": {
+        "non_trainable": 0,
+        "total": 5933441,
+        "trainable": 5933441
+      },
+      "framework": "TensorFlow 2.15.1",
+      "keras_tracked_parameters": {
+        "non_trainable": 0,
+        "total": 5437825,
+        "trainable": 5437825
+      },
+      "observed_parameters": {
+        "non_trainable": 0,
+        "total": 5933441,
+        "trainable": 5933441
+      },
+      "status": "pass",
+      "untracked_position_embedding": {
+        "declared_trainable": true,
+        "name_in_source": "pos_encoding",
+        "parameters": 495616,
+        "present_in_model_weights": false,
+        "shape": [
+          1,
+          1936,
+          256
+        ]
+      }
+    },
+    "bundled_transunet_352_keras_tracked": {
+      "configuration": {
+        "attention_heads": 8,
+        "cnn_channels": [
+          64,
+          128,
+          256
+        ],
+        "input_shape": [
+          352,
+          352,
+          3
+        ],
+        "num_classes": 1,
+        "transformer_hidden_size": 256,
+        "transformer_layers": 2
+      },
+      "constructor": "official_repo/s2mnet/models/baselines.py:TransUNet",
+      "constructor_executed": true,
+      "counting_method": {
+        "independent": "sum(product(tracked_variable.shape))",
+        "primary": "tf.keras.Model.count_params()",
+        "scope": "Keras-tracked variables only"
+      },
+      "evidence_class": "runtime_model_constructor",
+      "expected_parameters": {
+        "non_trainable": 0,
+        "total": 5437825,
+        "trainable": 5437825
+      },
+      "framework": "TensorFlow 2.15.1",
+      "independent_shape_sum": {
+        "all_weights": 5437825,
+        "non_trainable_weights": 0,
+        "trainable_weights": 5437825
+      },
+      "observed_parameters": {
+        "non_trainable": 0,
+        "total": 5437825,
+        "trainable": 5437825
+      },
+      "parameter_tensors": {
+        "all": 62,
+        "non_trainable": 0,
+        "trainable": 62
+      },
+      "pinned_commit": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+      "source_repository": "https://github.com/sanaullah-ashfat/S2M-Net-Spectral-Spatial-Mixing-for-Medical-Segmentation",
+      "status": "pass"
+    },
+    "official_swin_unet_tiny_lite_224_9class": {
+      "component_ledger": {
+        "decoder_layers": {
+          "non_trainable": 0,
+          "tensors": 87,
+          "total": 6219066,
+          "trainable": 6219066
+        },
+        "encoder_bottleneck_stages": {
+          "non_trainable": 0,
+          "tensors": 113,
+          "total": 20406954,
+          "trainable": 20406954
+        },
+        "final_decoder_norm": {
+          "non_trainable": 0,
+          "tensors": 2,
+          "total": 192,
+          "trainable": 192
+        },
+        "final_encoder_norm": {
+          "non_trainable": 0,
+          "tensors": 2,
+          "total": 1536,
+          "trainable": 1536
+        },
+        "final_patch_expand": {
+          "non_trainable": 0,
+          "tensors": 3,
+          "total": 147648,
+          "trainable": 147648
+        },
+        "patch_embedding": {
+          "non_trainable": 0,
+          "tensors": 4,
+          "total": 4896,
+          "trainable": 4896
+        },
+        "segmentation_head": {
+          "non_trainable": 0,
+          "tensors": 1,
+          "total": 864,
+          "trainable": 864
+        },
+        "skip_concat_projections": {
+          "non_trainable": 0,
+          "tensors": 6,
+          "total": 387744,
+          "trainable": 387744
+        }
+      },
+      "configuration": {
+        "absolute_position_embedding": false,
+        "attention_heads": [
+          3,
+          6,
+          12,
+          24
+        ],
+        "configured_decoder_depths_unused": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "effective_decoder_transformer_depths": [
+          2,
+          2,
+          2
+        ],
+        "embed_dimension": 96,
+        "encoder_depths": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "input_shape": [
+          224,
+          224,
+          3
+        ],
+        "mlp_ratio": 4,
+        "num_classes": 9,
+        "patch_normalization": true,
+        "patch_size": 4,
+        "qkv_bias": true,
+        "segmentation_head_bias": false,
+        "variant": "swin_tiny_patch4_window7_224_lite",
+        "window_size": 7
+      },
+      "constructor_executed": false,
+      "constructor_execution_limitation": "PyTorch is unavailable in the project environment.",
+      "counting_method": "Explicit sum of every PyTorch parameter tensor shape; registered attention masks and indices are buffers and excluded.",
+      "evidence_class": "transparent_parameter_ledger",
+      "expected_parameters": {
+        "non_trainable": 0,
+        "total": 27168900,
+        "trainable": 27168900
+      },
+      "ledger_sha256": "2b83a89abec0fa9a0564e6f39c485650b7b7863488b06ff3d47d5170b10b2a42",
+      "observed_parameters": {
+        "non_trainable": 0,
+        "total": 27168900,
+        "trainable": 27168900
+      },
+      "parameter_ledger": [
+        {
+          "component": "patch_embedding",
+          "count": 4608,
+          "name": "patch_embed.proj.weight",
+          "shape": [
+            96,
+            3,
+            4,
+            4
+          ],
+          "trainable": true
+        },
+        {
+          "component": "patch_embedding",
+          "count": 96,
+          "name": "patch_embed.proj.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "patch_embedding",
+          "count": 96,
+          "name": "patch_embed.norm.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "patch_embedding",
+          "count": 96,
+          "name": "patch_embed.norm.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.0.norm1.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.0.norm1.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 507,
+          "name": "layers.0.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 27648,
+          "name": "layers.0.blocks.0.attn.qkv.weight",
+          "shape": [
+            288,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 288,
+          "name": "layers.0.blocks.0.attn.qkv.bias",
+          "shape": [
+            288
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 9216,
+          "name": "layers.0.blocks.0.attn.proj.weight",
+          "shape": [
+            96,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.0.attn.proj.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.0.norm2.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.0.norm2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 36864,
+          "name": "layers.0.blocks.0.mlp.fc1.weight",
+          "shape": [
+            384,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.0.blocks.0.mlp.fc1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 36864,
+          "name": "layers.0.blocks.0.mlp.fc2.weight",
+          "shape": [
+            96,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.0.mlp.fc2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.1.norm1.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.1.norm1.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 507,
+          "name": "layers.0.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 27648,
+          "name": "layers.0.blocks.1.attn.qkv.weight",
+          "shape": [
+            288,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 288,
+          "name": "layers.0.blocks.1.attn.qkv.bias",
+          "shape": [
+            288
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 9216,
+          "name": "layers.0.blocks.1.attn.proj.weight",
+          "shape": [
+            96,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.1.attn.proj.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.1.norm2.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.1.norm2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 36864,
+          "name": "layers.0.blocks.1.mlp.fc1.weight",
+          "shape": [
+            384,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.0.blocks.1.mlp.fc1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 36864,
+          "name": "layers.0.blocks.1.mlp.fc2.weight",
+          "shape": [
+            96,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 96,
+          "name": "layers.0.blocks.1.mlp.fc2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.0.downsample.norm.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.0.downsample.norm.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 73728,
+          "name": "layers.0.downsample.reduction.weight",
+          "shape": [
+            192,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.0.norm1.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.0.norm1.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1014,
+          "name": "layers.1.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            6
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 110592,
+          "name": "layers.1.blocks.0.attn.qkv.weight",
+          "shape": [
+            576,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 576,
+          "name": "layers.1.blocks.0.attn.qkv.bias",
+          "shape": [
+            576
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 36864,
+          "name": "layers.1.blocks.0.attn.proj.weight",
+          "shape": [
+            192,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.0.attn.proj.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.0.norm2.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.0.norm2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 147456,
+          "name": "layers.1.blocks.0.mlp.fc1.weight",
+          "shape": [
+            768,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.1.blocks.0.mlp.fc1.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 147456,
+          "name": "layers.1.blocks.0.mlp.fc2.weight",
+          "shape": [
+            192,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.0.mlp.fc2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.1.norm1.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.1.norm1.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1014,
+          "name": "layers.1.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            6
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 110592,
+          "name": "layers.1.blocks.1.attn.qkv.weight",
+          "shape": [
+            576,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 576,
+          "name": "layers.1.blocks.1.attn.qkv.bias",
+          "shape": [
+            576
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 36864,
+          "name": "layers.1.blocks.1.attn.proj.weight",
+          "shape": [
+            192,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.1.attn.proj.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.1.norm2.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.1.norm2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 147456,
+          "name": "layers.1.blocks.1.mlp.fc1.weight",
+          "shape": [
+            768,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.1.blocks.1.mlp.fc1.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 147456,
+          "name": "layers.1.blocks.1.mlp.fc2.weight",
+          "shape": [
+            192,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 192,
+          "name": "layers.1.blocks.1.mlp.fc2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.1.downsample.norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.1.downsample.norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 294912,
+          "name": "layers.1.downsample.reduction.weight",
+          "shape": [
+            384,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.0.norm1.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.0.norm1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2028,
+          "name": "layers.2.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            12
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 442368,
+          "name": "layers.2.blocks.0.attn.qkv.weight",
+          "shape": [
+            1152,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1152,
+          "name": "layers.2.blocks.0.attn.qkv.bias",
+          "shape": [
+            1152
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 147456,
+          "name": "layers.2.blocks.0.attn.proj.weight",
+          "shape": [
+            384,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.0.attn.proj.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.0.norm2.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.0.norm2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 589824,
+          "name": "layers.2.blocks.0.mlp.fc1.weight",
+          "shape": [
+            1536,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1536,
+          "name": "layers.2.blocks.0.mlp.fc1.bias",
+          "shape": [
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 589824,
+          "name": "layers.2.blocks.0.mlp.fc2.weight",
+          "shape": [
+            384,
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.0.mlp.fc2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.1.norm1.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.1.norm1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2028,
+          "name": "layers.2.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            12
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 442368,
+          "name": "layers.2.blocks.1.attn.qkv.weight",
+          "shape": [
+            1152,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1152,
+          "name": "layers.2.blocks.1.attn.qkv.bias",
+          "shape": [
+            1152
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 147456,
+          "name": "layers.2.blocks.1.attn.proj.weight",
+          "shape": [
+            384,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.1.attn.proj.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.1.norm2.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.1.norm2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 589824,
+          "name": "layers.2.blocks.1.mlp.fc1.weight",
+          "shape": [
+            1536,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1536,
+          "name": "layers.2.blocks.1.mlp.fc1.bias",
+          "shape": [
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 589824,
+          "name": "layers.2.blocks.1.mlp.fc2.weight",
+          "shape": [
+            384,
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 384,
+          "name": "layers.2.blocks.1.mlp.fc2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1536,
+          "name": "layers.2.downsample.norm.weight",
+          "shape": [
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1536,
+          "name": "layers.2.downsample.norm.bias",
+          "shape": [
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1179648,
+          "name": "layers.2.downsample.reduction.weight",
+          "shape": [
+            768,
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.0.norm1.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.0.norm1.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 4056,
+          "name": "layers.3.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            24
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1769472,
+          "name": "layers.3.blocks.0.attn.qkv.weight",
+          "shape": [
+            2304,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2304,
+          "name": "layers.3.blocks.0.attn.qkv.bias",
+          "shape": [
+            2304
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 589824,
+          "name": "layers.3.blocks.0.attn.proj.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.0.attn.proj.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.0.norm2.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.0.norm2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2359296,
+          "name": "layers.3.blocks.0.mlp.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 3072,
+          "name": "layers.3.blocks.0.mlp.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2359296,
+          "name": "layers.3.blocks.0.mlp.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.0.mlp.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.1.norm1.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.1.norm1.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 4056,
+          "name": "layers.3.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            24
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 1769472,
+          "name": "layers.3.blocks.1.attn.qkv.weight",
+          "shape": [
+            2304,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2304,
+          "name": "layers.3.blocks.1.attn.qkv.bias",
+          "shape": [
+            2304
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 589824,
+          "name": "layers.3.blocks.1.attn.proj.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.1.attn.proj.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.1.norm2.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.1.norm2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2359296,
+          "name": "layers.3.blocks.1.mlp.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 3072,
+          "name": "layers.3.blocks.1.mlp.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 2359296,
+          "name": "layers.3.blocks.1.mlp.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "encoder_bottleneck_stages",
+          "count": 768,
+          "name": "layers.3.blocks.1.mlp.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_encoder_norm",
+          "count": 768,
+          "name": "norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_encoder_norm",
+          "count": 768,
+          "name": "norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1179648,
+          "name": "layers_up.0.expand.weight",
+          "shape": [
+            1536,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.0.norm.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.0.norm.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "skip_concat_projections",
+          "count": 294912,
+          "name": "concat_back_dim.1.weight",
+          "shape": [
+            384,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "skip_concat_projections",
+          "count": 384,
+          "name": "concat_back_dim.1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.0.norm1.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.0.norm1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 2028,
+          "name": "layers_up.1.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            12
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 442368,
+          "name": "layers_up.1.blocks.0.attn.qkv.weight",
+          "shape": [
+            1152,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1152,
+          "name": "layers_up.1.blocks.0.attn.qkv.bias",
+          "shape": [
+            1152
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 147456,
+          "name": "layers_up.1.blocks.0.attn.proj.weight",
+          "shape": [
+            384,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.0.attn.proj.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.0.norm2.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.0.norm2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 589824,
+          "name": "layers_up.1.blocks.0.mlp.fc1.weight",
+          "shape": [
+            1536,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1536,
+          "name": "layers_up.1.blocks.0.mlp.fc1.bias",
+          "shape": [
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 589824,
+          "name": "layers_up.1.blocks.0.mlp.fc2.weight",
+          "shape": [
+            384,
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.0.mlp.fc2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.1.norm1.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.1.norm1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 2028,
+          "name": "layers_up.1.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            12
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 442368,
+          "name": "layers_up.1.blocks.1.attn.qkv.weight",
+          "shape": [
+            1152,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1152,
+          "name": "layers_up.1.blocks.1.attn.qkv.bias",
+          "shape": [
+            1152
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 147456,
+          "name": "layers_up.1.blocks.1.attn.proj.weight",
+          "shape": [
+            384,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.1.attn.proj.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.1.norm2.weight",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.1.norm2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 589824,
+          "name": "layers_up.1.blocks.1.mlp.fc1.weight",
+          "shape": [
+            1536,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1536,
+          "name": "layers_up.1.blocks.1.mlp.fc1.bias",
+          "shape": [
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 589824,
+          "name": "layers_up.1.blocks.1.mlp.fc2.weight",
+          "shape": [
+            384,
+            1536
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.1.blocks.1.mlp.fc2.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 294912,
+          "name": "layers_up.1.upsample.expand.weight",
+          "shape": [
+            768,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.1.upsample.norm.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.1.upsample.norm.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "skip_concat_projections",
+          "count": 73728,
+          "name": "concat_back_dim.2.weight",
+          "shape": [
+            192,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "skip_concat_projections",
+          "count": 192,
+          "name": "concat_back_dim.2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.0.norm1.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.0.norm1.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1014,
+          "name": "layers_up.2.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            6
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 110592,
+          "name": "layers_up.2.blocks.0.attn.qkv.weight",
+          "shape": [
+            576,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 576,
+          "name": "layers_up.2.blocks.0.attn.qkv.bias",
+          "shape": [
+            576
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 36864,
+          "name": "layers_up.2.blocks.0.attn.proj.weight",
+          "shape": [
+            192,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.0.attn.proj.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.0.norm2.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.0.norm2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 147456,
+          "name": "layers_up.2.blocks.0.mlp.fc1.weight",
+          "shape": [
+            768,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 768,
+          "name": "layers_up.2.blocks.0.mlp.fc1.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 147456,
+          "name": "layers_up.2.blocks.0.mlp.fc2.weight",
+          "shape": [
+            192,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.0.mlp.fc2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.1.norm1.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.1.norm1.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 1014,
+          "name": "layers_up.2.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            6
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 110592,
+          "name": "layers_up.2.blocks.1.attn.qkv.weight",
+          "shape": [
+            576,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 576,
+          "name": "layers_up.2.blocks.1.attn.qkv.bias",
+          "shape": [
+            576
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 36864,
+          "name": "layers_up.2.blocks.1.attn.proj.weight",
+          "shape": [
+            192,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.1.attn.proj.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.1.norm2.weight",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.1.norm2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 147456,
+          "name": "layers_up.2.blocks.1.mlp.fc1.weight",
+          "shape": [
+            768,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 768,
+          "name": "layers_up.2.blocks.1.mlp.fc1.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 147456,
+          "name": "layers_up.2.blocks.1.mlp.fc2.weight",
+          "shape": [
+            192,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 192,
+          "name": "layers_up.2.blocks.1.mlp.fc2.bias",
+          "shape": [
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 73728,
+          "name": "layers_up.2.upsample.expand.weight",
+          "shape": [
+            384,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.2.upsample.norm.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.2.upsample.norm.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "skip_concat_projections",
+          "count": 18432,
+          "name": "concat_back_dim.3.weight",
+          "shape": [
+            96,
+            192
+          ],
+          "trainable": true
+        },
+        {
+          "component": "skip_concat_projections",
+          "count": 96,
+          "name": "concat_back_dim.3.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.0.norm1.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.0.norm1.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 507,
+          "name": "layers_up.3.blocks.0.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 27648,
+          "name": "layers_up.3.blocks.0.attn.qkv.weight",
+          "shape": [
+            288,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 288,
+          "name": "layers_up.3.blocks.0.attn.qkv.bias",
+          "shape": [
+            288
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 9216,
+          "name": "layers_up.3.blocks.0.attn.proj.weight",
+          "shape": [
+            96,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.0.attn.proj.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.0.norm2.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.0.norm2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 36864,
+          "name": "layers_up.3.blocks.0.mlp.fc1.weight",
+          "shape": [
+            384,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.3.blocks.0.mlp.fc1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 36864,
+          "name": "layers_up.3.blocks.0.mlp.fc2.weight",
+          "shape": [
+            96,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.0.mlp.fc2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.1.norm1.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.1.norm1.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 507,
+          "name": "layers_up.3.blocks.1.attn.relative_position_bias_table",
+          "shape": [
+            169,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 27648,
+          "name": "layers_up.3.blocks.1.attn.qkv.weight",
+          "shape": [
+            288,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 288,
+          "name": "layers_up.3.blocks.1.attn.qkv.bias",
+          "shape": [
+            288
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 9216,
+          "name": "layers_up.3.blocks.1.attn.proj.weight",
+          "shape": [
+            96,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.1.attn.proj.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.1.norm2.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.1.norm2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 36864,
+          "name": "layers_up.3.blocks.1.mlp.fc1.weight",
+          "shape": [
+            384,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 384,
+          "name": "layers_up.3.blocks.1.mlp.fc1.bias",
+          "shape": [
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 36864,
+          "name": "layers_up.3.blocks.1.mlp.fc2.weight",
+          "shape": [
+            96,
+            384
+          ],
+          "trainable": true
+        },
+        {
+          "component": "decoder_layers",
+          "count": 96,
+          "name": "layers_up.3.blocks.1.mlp.fc2.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_decoder_norm",
+          "count": 96,
+          "name": "norm_up.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_decoder_norm",
+          "count": 96,
+          "name": "norm_up.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_patch_expand",
+          "count": 147456,
+          "name": "up.expand.weight",
+          "shape": [
+            1536,
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_patch_expand",
+          "count": 96,
+          "name": "up.norm.weight",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_patch_expand",
+          "count": 96,
+          "name": "up.norm.bias",
+          "shape": [
+            96
+          ],
+          "trainable": true
+        },
+        {
+          "component": "segmentation_head",
+          "count": 864,
+          "name": "output.weight",
+          "shape": [
+            9,
+            96,
+            1,
+            1
+          ],
+          "trainable": true
+        }
+      ],
+      "parameter_tensor_count": 218,
+      "pinned_commit": "1c8b3e860dfaa89c98fa8e5ad1d4abd2251744f9",
+      "sensitivity_counts": {
+        "224_1class": {
+          "non_trainable": 0,
+          "total": 27168132,
+          "trainable": 27168132
+        },
+        "352_9class": {
+          "non_trainable": 0,
+          "total": 27168900,
+          "trainable": 27168900
+        }
+      },
+      "source_files": [
+        "configs/swin_tiny_patch4_window7_224_lite.yaml",
+        "config.py",
+        "train.sh",
+        "train.py",
+        "networks/vision_transformer.py",
+        "networks/swin_transformer_unet_skip_expand_decoder_sys.py"
+      ],
+      "source_repository": "https://github.com/HuCaoFighting/Swin-Unet",
+      "status": "pass"
+    },
+    "official_transunet_r50_vit_b16_224_9class": {
+      "component_ledger": {
+        "cup_decoder": {
+          "non_trainable": 0,
+          "tensors": 27,
+          "total": 7387200,
+          "trainable": 7387200
+        },
+        "final_transformer_norm": {
+          "non_trainable": 0,
+          "tensors": 2,
+          "total": 1536,
+          "trainable": 1536
+        },
+        "hybrid_patch_embedding": {
+          "non_trainable": 0,
+          "tensors": 2,
+          "total": 787200,
+          "trainable": 787200
+        },
+        "hybrid_resnet_v2": {
+          "non_trainable": 0,
+          "tensors": 156,
+          "total": 11894848,
+          "trainable": 11894848
+        },
+        "position_embedding": {
+          "non_trainable": 0,
+          "tensors": 1,
+          "total": 150528,
+          "trainable": 150528
+        },
+        "segmentation_head": {
+          "non_trainable": 0,
+          "tensors": 2,
+          "total": 1305,
+          "trainable": 1305
+        },
+        "transformer_blocks": {
+          "non_trainable": 0,
+          "tensors": 192,
+          "total": 85054464,
+          "trainable": 85054464
+        }
+      },
+      "configuration": {
+        "decoder_channels": [
+          256,
+          128,
+          64,
+          16
+        ],
+        "input_shape": [
+          224,
+          224,
+          3
+        ],
+        "n_skip": 3,
+        "num_classes": 9,
+        "resnet_block_units": [
+          3,
+          4,
+          9
+        ],
+        "resnet_width": 64,
+        "skip_channels": [
+          512,
+          256,
+          64,
+          0
+        ],
+        "variant": "R50-ViT-B_16",
+        "vit_heads": 12,
+        "vit_hidden_size": 768,
+        "vit_layers": 12,
+        "vit_mlp_dimension": 3072
+      },
+      "constructor_executed": false,
+      "constructor_execution_limitation": "PyTorch is unavailable in the project environment.",
+      "counting_method": "Explicit sum of every PyTorch parameter tensor shape; buffers excluded as model.parameters() excludes them.",
+      "evidence_class": "transparent_parameter_ledger",
+      "expected_parameters": {
+        "non_trainable": 0,
+        "total": 105277081,
+        "trainable": 105277081
+      },
+      "ledger_sha256": "e59045c0d2b83fd88341c678390fcd2c14515f7b7df1ac658b28ab22834f1e3c",
+      "observed_parameters": {
+        "non_trainable": 0,
+        "total": 105277081,
+        "trainable": 105277081
+      },
+      "parameter_ledger": [
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 9408,
+          "name": "resnet.root.conv.weight",
+          "shape": [
+            64,
+            3,
+            7,
+            7
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.root.gn.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.root.gn.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 4096,
+          "name": "resnet.block1.unit1.conv1.weight",
+          "shape": [
+            64,
+            64,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit1.gn1.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit1.gn1.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 36864,
+          "name": "resnet.block1.unit1.conv2.weight",
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit1.gn2.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit1.gn2.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 16384,
+          "name": "resnet.block1.unit1.conv3.weight",
+          "shape": [
+            256,
+            64,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit1.gn3.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit1.gn3.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 16384,
+          "name": "resnet.block1.unit1.downsample.weight",
+          "shape": [
+            256,
+            64,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit1.gn_proj.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit1.gn_proj.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 16384,
+          "name": "resnet.block1.unit2.conv1.weight",
+          "shape": [
+            64,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit2.gn1.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit2.gn1.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 36864,
+          "name": "resnet.block1.unit2.conv2.weight",
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit2.gn2.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit2.gn2.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 16384,
+          "name": "resnet.block1.unit2.conv3.weight",
+          "shape": [
+            256,
+            64,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit2.gn3.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit2.gn3.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 16384,
+          "name": "resnet.block1.unit3.conv1.weight",
+          "shape": [
+            64,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit3.gn1.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit3.gn1.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 36864,
+          "name": "resnet.block1.unit3.conv2.weight",
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit3.gn2.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 64,
+          "name": "resnet.block1.unit3.gn2.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 16384,
+          "name": "resnet.block1.unit3.conv3.weight",
+          "shape": [
+            256,
+            64,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit3.gn3.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block1.unit3.gn3.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 32768,
+          "name": "resnet.block2.unit1.conv1.weight",
+          "shape": [
+            128,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit1.gn1.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit1.gn1.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 147456,
+          "name": "resnet.block2.unit1.conv2.weight",
+          "shape": [
+            128,
+            128,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit1.gn2.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit1.gn2.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit1.conv3.weight",
+          "shape": [
+            512,
+            128,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit1.gn3.weight",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit1.gn3.bias",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 131072,
+          "name": "resnet.block2.unit1.downsample.weight",
+          "shape": [
+            512,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit1.gn_proj.weight",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit1.gn_proj.bias",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit2.conv1.weight",
+          "shape": [
+            128,
+            512,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit2.gn1.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit2.gn1.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 147456,
+          "name": "resnet.block2.unit2.conv2.weight",
+          "shape": [
+            128,
+            128,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit2.gn2.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit2.gn2.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit2.conv3.weight",
+          "shape": [
+            512,
+            128,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit2.gn3.weight",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit2.gn3.bias",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit3.conv1.weight",
+          "shape": [
+            128,
+            512,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit3.gn1.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit3.gn1.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 147456,
+          "name": "resnet.block2.unit3.conv2.weight",
+          "shape": [
+            128,
+            128,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit3.gn2.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit3.gn2.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit3.conv3.weight",
+          "shape": [
+            512,
+            128,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit3.gn3.weight",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit3.gn3.bias",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit4.conv1.weight",
+          "shape": [
+            128,
+            512,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit4.gn1.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit4.gn1.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 147456,
+          "name": "resnet.block2.unit4.conv2.weight",
+          "shape": [
+            128,
+            128,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit4.gn2.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 128,
+          "name": "resnet.block2.unit4.gn2.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 65536,
+          "name": "resnet.block2.unit4.conv3.weight",
+          "shape": [
+            512,
+            128,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit4.gn3.weight",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 512,
+          "name": "resnet.block2.unit4.gn3.bias",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 131072,
+          "name": "resnet.block3.unit1.conv1.weight",
+          "shape": [
+            256,
+            512,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit1.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit1.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit1.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit1.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit1.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit1.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit1.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit1.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 524288,
+          "name": "resnet.block3.unit1.downsample.weight",
+          "shape": [
+            1024,
+            512,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit1.gn_proj.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit1.gn_proj.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit2.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit2.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit2.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit2.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit2.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit2.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit2.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit2.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit2.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit3.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit3.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit3.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit3.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit3.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit3.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit3.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit3.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit3.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit4.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit4.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit4.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit4.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit4.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit4.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit4.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit4.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit4.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit5.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit5.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit5.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit5.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit5.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit5.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit5.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit5.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit5.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit6.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit6.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit6.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit6.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit6.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit6.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit6.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit6.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit6.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit7.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit7.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit7.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit7.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit7.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit7.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit7.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit7.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit7.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit8.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit8.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit8.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit8.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit8.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit8.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit8.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit8.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit8.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit9.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit9.gn1.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit9.gn1.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 589824,
+          "name": "resnet.block3.unit9.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit9.gn2.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 256,
+          "name": "resnet.block3.unit9.gn2.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 262144,
+          "name": "resnet.block3.unit9.conv3.weight",
+          "shape": [
+            1024,
+            256,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit9.gn3.weight",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_resnet_v2",
+          "count": 1024,
+          "name": "resnet.block3.unit9.gn3.bias",
+          "shape": [
+            1024
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_patch_embedding",
+          "count": 786432,
+          "name": "transformer.embeddings.patch_embeddings.weight",
+          "shape": [
+            768,
+            1024,
+            1,
+            1
+          ],
+          "trainable": true
+        },
+        {
+          "component": "hybrid_patch_embedding",
+          "count": 768,
+          "name": "transformer.embeddings.patch_embeddings.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "position_embedding",
+          "count": 150528,
+          "name": "transformer.embeddings.position_embeddings",
+          "shape": [
+            1,
+            196,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block0.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block0.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block0.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block0.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block0.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block0.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block0.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block0.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block1.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block1.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block1.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block1.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block1.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block1.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block1.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block1.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block2.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block2.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block2.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block2.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block2.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block2.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block2.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block2.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block3.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block3.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block3.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block3.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block3.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block3.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block3.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block3.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block4.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block4.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block4.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block4.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block4.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block4.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block4.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block4.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block5.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block5.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block5.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block5.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block5.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block5.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block5.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block5.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block6.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block6.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block6.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block6.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block6.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block6.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block6.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block6.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block7.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block7.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block7.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block7.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block7.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block7.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block7.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block7.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block8.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block8.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block8.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block8.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block8.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block8.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block8.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block8.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block9.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block9.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block9.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block9.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block9.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block9.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block9.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block9.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block10.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block10.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block10.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block10.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block10.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block10.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block10.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block10.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.attention_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.attention_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block11.attention.query.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.attention.query.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block11.attention.key.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.attention.key.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block11.attention.value.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.attention.value.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 589824,
+          "name": "transformer.encoder.block11.attention.out.weight",
+          "shape": [
+            768,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.attention.out.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.ffn_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.ffn_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block11.ffn.fc1.weight",
+          "shape": [
+            3072,
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 3072,
+          "name": "transformer.encoder.block11.ffn.fc1.bias",
+          "shape": [
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 2359296,
+          "name": "transformer.encoder.block11.ffn.fc2.weight",
+          "shape": [
+            768,
+            3072
+          ],
+          "trainable": true
+        },
+        {
+          "component": "transformer_blocks",
+          "count": 768,
+          "name": "transformer.encoder.block11.ffn.fc2.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_transformer_norm",
+          "count": 768,
+          "name": "transformer.encoder.encoder_norm.weight",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "final_transformer_norm",
+          "count": 768,
+          "name": "transformer.encoder.encoder_norm.bias",
+          "shape": [
+            768
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 3538944,
+          "name": "decoder.conv_more.conv.weight",
+          "shape": [
+            512,
+            768,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 512,
+          "name": "decoder.conv_more.bn.weight",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 512,
+          "name": "decoder.conv_more.bn.bias",
+          "shape": [
+            512
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 2359296,
+          "name": "decoder.block0.conv1.weight",
+          "shape": [
+            256,
+            1024,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 256,
+          "name": "decoder.block0.conv1.bn.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 256,
+          "name": "decoder.block0.conv1.bn.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 589824,
+          "name": "decoder.block0.conv2.weight",
+          "shape": [
+            256,
+            256,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 256,
+          "name": "decoder.block0.conv2.bn.weight",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 256,
+          "name": "decoder.block0.conv2.bn.bias",
+          "shape": [
+            256
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 589824,
+          "name": "decoder.block1.conv1.weight",
+          "shape": [
+            128,
+            512,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 128,
+          "name": "decoder.block1.conv1.bn.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 128,
+          "name": "decoder.block1.conv1.bn.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 147456,
+          "name": "decoder.block1.conv2.weight",
+          "shape": [
+            128,
+            128,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 128,
+          "name": "decoder.block1.conv2.bn.weight",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 128,
+          "name": "decoder.block1.conv2.bn.bias",
+          "shape": [
+            128
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 110592,
+          "name": "decoder.block2.conv1.weight",
+          "shape": [
+            64,
+            192,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 64,
+          "name": "decoder.block2.conv1.bn.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 64,
+          "name": "decoder.block2.conv1.bn.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 36864,
+          "name": "decoder.block2.conv2.weight",
+          "shape": [
+            64,
+            64,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 64,
+          "name": "decoder.block2.conv2.bn.weight",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 64,
+          "name": "decoder.block2.conv2.bn.bias",
+          "shape": [
+            64
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 9216,
+          "name": "decoder.block3.conv1.weight",
+          "shape": [
+            16,
+            64,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 16,
+          "name": "decoder.block3.conv1.bn.weight",
+          "shape": [
+            16
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 16,
+          "name": "decoder.block3.conv1.bn.bias",
+          "shape": [
+            16
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 2304,
+          "name": "decoder.block3.conv2.weight",
+          "shape": [
+            16,
+            16,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 16,
+          "name": "decoder.block3.conv2.bn.weight",
+          "shape": [
+            16
+          ],
+          "trainable": true
+        },
+        {
+          "component": "cup_decoder",
+          "count": 16,
+          "name": "decoder.block3.conv2.bn.bias",
+          "shape": [
+            16
+          ],
+          "trainable": true
+        },
+        {
+          "component": "segmentation_head",
+          "count": 1296,
+          "name": "segmentation_head.conv.weight",
+          "shape": [
+            9,
+            16,
+            3,
+            3
+          ],
+          "trainable": true
+        },
+        {
+          "component": "segmentation_head",
+          "count": 9,
+          "name": "segmentation_head.conv.bias",
+          "shape": [
+            9
+          ],
+          "trainable": true
+        }
+      ],
+      "parameter_tensor_count": 382,
+      "pinned_commit": "26de0c4d9a5145589ea249d169af7f7130823e03",
+      "sensitivity_counts": {
+        "224_1class": {
+          "non_trainable": 0,
+          "total": 105275921,
+          "trainable": 105275921
+        },
+        "224_2class": {
+          "non_trainable": 0,
+          "total": 105276066,
+          "trainable": 105276066
+        },
+        "352_1class": {
+          "non_trainable": 0,
+          "total": 105497105,
+          "trainable": 105497105
+        },
+        "352_9class": {
+          "non_trainable": 0,
+          "total": 105498265,
+          "trainable": 105498265
+        }
+      },
+      "source_files": [
+        "networks/vit_seg_configs.py",
+        "networks/vit_seg_modeling.py",
+        "networks/vit_seg_modeling_resnet_skip.py",
+        "train.py"
+      ],
+      "source_repository": "https://github.com/Beckschen/TransUNet",
+      "status": "pass"
+    },
+    "s2mnet_256": {
+      "configuration": {
+        "activation": "elu",
+        "bfp_routing": "soft",
+        "dropout": 0.1,
+        "expand_ratio": 6,
+        "filters": [
+          24,
+          32,
+          64,
+          80,
+          128
+        ],
+        "input_shape": [
+          256,
+          256,
+          3
+        ],
+        "l2_reg": 0.0001,
+        "mrfse_kernels": [
+          3,
+          5,
+          7
+        ],
+        "num_classes": 1,
+        "se_reduction": 16,
+        "sstm_dropout": 0.1,
+        "sstm_k": 32,
+        "sstm_ssm_dim": 16,
+        "sstm_stages": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "sstm_use_spectral": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "sstm_use_ssm": [
+          false,
+          false,
+          true,
+          true,
+          true
+        ],
+        "use_bfp": true,
+        "use_mrfse": true,
+        "use_sstm": true
+      },
+      "constructor": "official_repo/s2mnet/models/s2mnet.py:S2MNet",
+      "constructor_executed": true,
+      "counting_method": {
+        "independent": "sum(product(variable.shape))",
+        "primary": "tf.keras.Model.count_params()"
+      },
+      "evidence_class": "runtime_model_constructor",
+      "expected_parameters": {
+        "non_trainable": 22624,
+        "total": 4766008,
+        "trainable": 4743384
+      },
+      "framework": "TensorFlow 2.15.1",
+      "independent_shape_sum": {
+        "all_weights": 4766008,
+        "non_trainable_weights": 22624,
+        "trainable_weights": 4743384
+      },
+      "observed_parameters": {
+        "non_trainable": 22624,
+        "total": 4766008,
+        "trainable": 4743384
+      },
+      "parameter_tensors": {
+        "all": 409,
+        "non_trainable": 104,
+        "trainable": 305
+      },
+      "pinned_commit": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+      "source_repository": "https://github.com/sanaullah-ashfat/S2M-Net-Spectral-Spatial-Mixing-for-Medical-Segmentation",
+      "status": "pass"
+    },
+    "s2mnet_352": {
+      "configuration": {
+        "activation": "elu",
+        "bfp_routing": "soft",
+        "dropout": 0.1,
+        "expand_ratio": 6,
+        "filters": [
+          24,
+          32,
+          64,
+          80,
+          128
+        ],
+        "input_shape": [
+          352,
+          352,
+          3
+        ],
+        "l2_reg": 0.0001,
+        "mrfse_kernels": [
+          3,
+          5,
+          7
+        ],
+        "num_classes": 1,
+        "se_reduction": 16,
+        "sstm_dropout": 0.1,
+        "sstm_k": 32,
+        "sstm_ssm_dim": 16,
+        "sstm_stages": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "sstm_use_spectral": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "sstm_use_ssm": [
+          false,
+          false,
+          true,
+          true,
+          true
+        ],
+        "use_bfp": true,
+        "use_mrfse": true,
+        "use_sstm": true
+      },
+      "constructor": "official_repo/s2mnet/models/s2mnet.py:S2MNet",
+      "constructor_executed": true,
+      "counting_method": {
+        "independent": "sum(product(variable.shape))",
+        "primary": "tf.keras.Model.count_params()"
+      },
+      "evidence_class": "runtime_model_constructor",
+      "expected_parameters": {
+        "non_trainable": 22624,
+        "total": 4791544,
+        "trainable": 4768920
+      },
+      "framework": "TensorFlow 2.15.1",
+      "independent_shape_sum": {
+        "all_weights": 4791544,
+        "non_trainable_weights": 22624,
+        "trainable_weights": 4768920
+      },
+      "observed_parameters": {
+        "non_trainable": 22624,
+        "total": 4791544,
+        "trainable": 4768920
+      },
+      "parameter_tensors": {
+        "all": 409,
+        "non_trainable": 104,
+        "trainable": 305
+      },
+      "pinned_commit": "3ec59668ab9b438ab9b170306d29b01e9270fd5a",
+      "source_repository": "https://github.com/sanaullah-ashfat/S2M-Net-Spectral-Spatial-Mixing-for-Medical-Segmentation",
+      "status": "pass"
+    }
+  },
+  "overall_claim1_assessment": {
+    "reason": "The executable audit strengthens reproducibility of the exact released architecture and independent baseline counts, but it cannot recover the paper's TransUNet or Swin-Unet configurations and does not turn 4,791,544 into conventional 4.7M rounding.",
+    "recommended_verdict_change": false,
+    "status": "partially_verified"
+  },
+  "ratios_against_s2mnet_352": {
+    "bundled_transunet_352_constructor_plus_untracked_ledger": {
+      "denominator": 4791544,
+      "numerator": 5933441,
+      "value": 1.238315039995
+    },
+    "bundled_transunet_352_keras_tracked_runtime_constructor": {
+      "denominator": 4791544,
+      "numerator": 5437825,
+      "value": 1.134879487697
+    },
+    "official_swin_unet_224_1class_sensitivity_ledger": {
+      "denominator": 4791544,
+      "numerator": 27168132,
+      "value": 5.670016178501
+    },
+    "official_swin_unet_224_9class_ledger": {
+      "denominator": 4791544,
+      "numerator": 27168900,
+      "value": 5.670176460865
+    },
+    "official_swin_unet_352_9class_sensitivity_ledger": {
+      "denominator": 4791544,
+      "numerator": 27168900,
+      "value": 5.670176460865
+    },
+    "official_transunet_224_1class_ledger": {
+      "denominator": 4791544,
+      "numerator": 105275921,
+      "value": 21.971189453754
+    },
+    "official_transunet_224_2class_ledger": {
+      "denominator": 4791544,
+      "numerator": 105276066,
+      "value": 21.971219715399
+    },
+    "official_transunet_224_9class_ledger": {
+      "denominator": 4791544,
+      "numerator": 105277081,
+      "value": 21.971431546908
+    },
+    "official_transunet_352_1class_sensitivity_ledger": {
+      "denominator": 4791544,
+      "numerator": 105497105,
+      "value": 22.017350774615
+    },
+    "official_transunet_352_9class_sensitivity_ledger": {
+      "denominator": 4791544,
+      "numerator": 105498265,
+      "value": 22.017592867769
+    },
+    "readme_display_27_0m_divided_by_4_7m": {
+      "denominator": 4700000,
+      "numerator": 27000000,
+      "value": 5.744680851064
+    },
+    "readme_display_60_0m_divided_by_4_7m": {
+      "denominator": 4700000,
+      "numerator": 60000000,
+      "value": 12.765957446809
+    },
+    "s2mnet_256_runtime_constructor": {
+      "denominator": 4791544,
+      "numerator": 4766008,
+      "value": 0.994670611394
+    },
+    "swin_unet_readme_reported_27_0m": {
+      "denominator": 4791544,
+      "numerator": 27000000,
+      "value": 5.634926862823
+    },
+    "transunet_readme_reported_60_0m": {
+      "denominator": 4791544,
+      "numerator": 60000000,
+      "value": 12.522059695163
+    }
+  },
+  "reported_values": {
+    "paper_s2mnet": {
+      "conventional_one_decimal_rounding_of_observed_exact_count": "4.8M",
+      "evidence_class": "reported_external_value",
+      "exact_integer_available": false,
+      "value": "4.7M"
+    },
+    "paper_swin_unet_ratio": {
+      "evidence_class": "reported_external_value",
+      "explicit_baseline_count_in_paper": null,
+      "matching_citation": null,
+      "value": "approximately 6x smaller"
+    },
+    "paper_transunet_ratio": {
+      "evidence_class": "reported_external_value",
+      "explicit_baseline_count_in_paper": null,
+      "value": "approximately 13x smaller"
+    },
+    "readme_swin_unet": {
+      "evidence_class": "reported_external_value",
+      "matching_executable_configuration": null,
+      "parameters": 27000000
+    },
+    "readme_transunet": {
+      "displayed_ratio": 12.8,
+      "evidence_class": "reported_external_value",
+      "matching_executable_configuration": null,
+      "parameters": 60000000
+    }
+  },
+  "resolution_dependent_difference": {
+    "changed_top_level_layers": [
+      {
+        "delta_352_minus_256": 18240,
+        "layer": "sstm_stage4",
+        "parameters_256": 46960,
+        "parameters_352": 65200
+      },
+      {
+        "delta_352_minus_256": 7296,
+        "layer": "sstm_stage5",
+        "parameters_256": 75136,
+        "parameters_352": 82432
+      }
+    ],
+    "changed_variables": [
+      {
+        "delta_352_minus_256": 18240,
+        "layer": "sstm_stage4",
+        "parameters_256": 20480,
+        "parameters_352": 38720,
+        "shape_256": [
+          16,
+          16,
+          80
+        ],
+        "shape_352": [
+          22,
+          22,
+          80
+        ],
+        "trainable_256": true,
+        "trainable_352": true,
+        "variable": "sstm_stage4/freq_weights:0"
+      },
+      {
+        "delta_352_minus_256": 7296,
+        "layer": "sstm_stage5",
+        "parameters_256": 8192,
+        "parameters_352": 15488,
+        "shape_256": [
+          8,
+          8,
+          128
+        ],
+        "shape_352": [
+          11,
+          11,
+          128
+        ],
+        "trainable_256": true,
+        "trainable_352": true,
+        "variable": "sstm_stage5/freq_weights:0"
+      }
+    ],
+    "delta_accounted_for_by_changed_variables": 25536,
+    "total_delta_352_minus_256": 25536
+  },
+  "schema_version": 1
+}

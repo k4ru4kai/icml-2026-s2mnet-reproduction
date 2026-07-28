@@ -36,6 +36,42 @@ cannot be recovered.
 - **Unresolved ambiguity:** paper and released implementation do not provide
   enough matching information for a definitive equivalence.
 
+## Executable audit closure
+
+The local Claim 1 evidence is now backed by an executable, build-only audit:
+
+- `repro/diagnostics/verify_claim1_architecture.py`;
+- `tests/test_claim1_architecture_audit.py`; and
+- `results/audits/claim1_architecture_parameters.json`.
+
+`CLAIM1_AUDIT_STATUS=PASS` means that the verification procedure and all of
+its internal expected-versus-observed checks passed. It does **not** mean
+that the complete paper claim was reproduced.
+
+| Evidence | Counting method | Parameters | Ratio to exact 352 S2M-Net |
+|---|---|---:|---:|
+| S2M-Net, 352 × 352, one class | Executed TensorFlow constructor plus independent shape sum | **4,791,544** | 1.000× |
+| S2M-Net, 256 × 256, one class | Executed TensorFlow constructor plus independent shape sum | **4,766,008** | 0.994671× |
+| Bundled TensorFlow TransUNet, Keras-tracked | Executed TensorFlow constructor plus tracked-variable shape sum | **5,437,825** | 1.134879× |
+| Bundled TensorFlow TransUNet, including untracked positional embedding | Constructor count plus explicit tensor ledger | **5,933,441** | 1.238315× |
+| Official TransUNet `R50-ViT-B_16` | Transparent ledger at pinned commit `26de0c4d9a5145589ea249d169af7f7130823e03`; constructor not executed | **105,277,081** | 21.971432× |
+| Official Swin-Unet Tiny/lite | Transparent ledger at pinned commit `1c8b3e860dfaa89c98fa8e5ad1d4abd2251744f9`; constructor not executed | **27,168,900** | 5.670176× |
+| README TransUNet value | Externally reported value only | **60.0M** | 12.522060× |
+| README Swin-Unet value | Externally reported value only | **27.0M** | 5.634927× |
+
+The 25,536-parameter difference between the two S2M-Net resolutions is fully
+localized to `sstm_stage4/freq_weights:0` (**+18,240**) and
+`sstm_stage5/freq_weights:0` (**+7,296**). The instantiated audit also
+confirms five encoder stages with channels **{24, 32, 64, 80, 128}**.
+
+The verdict remains **Partially verified**, not falsified. The exact S2M-Net
+count conventionally rounds to approximately 4.8M; the claimed 60M TransUNet
+configuration is unidentified; the pinned official TransUNet gives
+approximately 22× rather than 13×; and the bundled implementation including
+its untracked positional embedding gives only approximately 1.24×.
+Swin-Unet remains compatible with approximately 6×, but the S2M-Net
+materials do not identify the exact compared configuration.
+
 ## Exact S2M-Net parameter count
 
 **Evidence class: directly verified.**
@@ -298,7 +334,14 @@ paper–implementation ambiguities remain unresolved.
 
 ## Authoritative evidence record
 
-This page uses only
+This page is supported by
 `docs/claim1_parameter_count_investigation.md` (SHA-256
-`1661cc60df4da11cdcd290416a53c174f7a2f663d7fd13898a1cd585bd7bc249`).
+`3455e4378ca09e198e6f4c937a0eb7f831e1cc423736c3a959a6b86c140abc14`),
+`repro/diagnostics/verify_claim1_architecture.py` (SHA-256
+`16daac79128baea3c193ac2c1e16cc4b6a0d73b42c9166ef28ffab11eae0ce56`),
+`tests/test_claim1_architecture_audit.py` (SHA-256
+`22cf6cb94319d3d444639a8f7ca84969ef1ec421119d069e503276b9127df4bd`),
+and the deterministic
+`results/audits/claim1_architecture_parameters.json` (SHA-256
+`89098fa4456efe2be46401f64c8fc8963a82e82c5b8eff264c59c63e947e7e37`).
 No model was trained and no claim evidence was drawn from hidden-test data.
