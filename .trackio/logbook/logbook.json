@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "title": "Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation",
+  "title": "S2M-Net Reproduction Study",
   "emoji": "🎯",
   "space_id": "K4ru4k4i/eh48NIgu9z",
   "paper": {
@@ -14,36 +14,36 @@
   "updated_at": "2026-07-27T21:42:23+00:00",
   "root": {
     "slug": "index",
-    "title": "Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation",
+    "title": "S2M-Net Reproduction Study",
     "file": "pages/index.md",
     "children": [
       {
         "slug": "introduction-and-scope",
-        "title": "Introduction and scope",
+        "title": "Project overview and scope",
         "file": "pages/introduction-and-scope/page.md",
         "children": []
       },
       {
         "slug": "phase-2a-synthetic-full-model-validation",
-        "title": "Phase 2A - Synthetic Full-Model Validation",
+        "title": "Phase 2A — Synthetic model validation",
         "file": "pages/phase-2a-synthetic-full-model-validation/page.md",
         "children": []
       },
       {
         "slug": "claim-sstm-truncated-fft-and-spectral-energy",
-        "title": "Claim - SSTM truncated FFT and spectral energy",
+        "title": "Claim 2 — SSTM mechanism, spectral energy, and computational cost",
         "file": "pages/claim-sstm-truncated-fft-and-spectral-energy/page.md",
         "children": []
       },
       {
         "slug": "claim-drive-full-model-versus-no-sstm",
-        "title": "Claim - DRIVE Full Model versus No-SSTM",
+        "title": "DRIVE ablation — Full vs. No-SSTM",
         "file": "pages/claim-drive-full-model-versus-no-sstm/page.md",
         "children": []
       },
       {
         "slug": "claim-1-architecture-and-parameters",
-        "title": "Claim 1 - architecture and parameters",
+        "title": "Claim 1 — Architecture and parameter efficiency",
         "file": "pages/claim-1-architecture-and-parameters/page.md",
         "children": []
       }

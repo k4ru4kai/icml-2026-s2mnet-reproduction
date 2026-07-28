@@ -1,4 +1,4 @@
-# Claim - DRIVE Full Model versus No-SSTM
+# DRIVE ablation — Full vs. No-SSTM
 
 
 ---

@@ -1,11 +1,11 @@
-# Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation
+# S2M-Net Reproduction Study
 
 ## Pages
 
 | Page |
 | --- |
-| [Introduction and scope](#/introduction-and-scope) |
-| [Phase 2A - Synthetic Full-Model Validation](#/phase-2a-synthetic-full-model-validation) |
-| [Claim - SSTM truncated FFT and spectral energy](#/claim-sstm-truncated-fft-and-spectral-energy) |
-| [Claim - DRIVE Full Model versus No-SSTM](#/claim-drive-full-model-versus-no-sstm) |
-| [Claim 1 - architecture and parameters](#/claim-1-architecture-and-parameters) |
+| [Project overview and scope](#/introduction-and-scope) |
+| [Phase 2A — Synthetic model validation](#/phase-2a-synthetic-full-model-validation) |
+| [Claim 2 — SSTM mechanism, spectral energy, and computational cost](#/claim-sstm-truncated-fft-and-spectral-energy) |
+| [DRIVE ablation — Full vs. No-SSTM](#/claim-drive-full-model-versus-no-sstm) |
+| [Claim 1 — Architecture and parameter efficiency](#/claim-1-architecture-and-parameters) |

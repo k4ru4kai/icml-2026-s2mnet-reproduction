@@ -1,4 +1,4 @@
-# Phase 2A - Synthetic Full-Model Validation
+# Phase 2A — Synthetic model validation
 
 
 ---

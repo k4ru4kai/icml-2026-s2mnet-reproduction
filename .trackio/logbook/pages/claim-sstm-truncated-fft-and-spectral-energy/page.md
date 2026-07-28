@@ -1,4 +1,4 @@
-# Claim - SSTM truncated FFT and spectral energy
+# Claim 2 — SSTM mechanism, spectral energy, and computational cost
 
 
 ---

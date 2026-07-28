@@ -1,4 +1,4 @@
-# Claim 1 - architecture and parameters
+# Claim 1 — Architecture and parameter efficiency
 
 
 ---
