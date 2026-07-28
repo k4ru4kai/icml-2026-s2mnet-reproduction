@@ -11,7 +11,7 @@
     "icml2026-repro",
     "paper-eh48NIgu9z"
   ],
-  "updated_at": "2026-07-21T20:38:58+00:00",
+  "updated_at": "2026-07-27T21:42:23+00:00",
   "root": {
     "slug": "index",
     "title": "Repro - S2M-Net: Spectral-Spatial Mixing with Morphology-Aware Adaptive Loss for Medical Image Segmentation",
@@ -40,9 +40,15 @@
         "title": "Claim - DRIVE Full Model versus No-SSTM",
         "file": "pages/claim-drive-full-model-versus-no-sstm/page.md",
         "children": []
+      },
+      {
+        "slug": "claim-1-architecture-and-parameters",
+        "title": "Claim 1 - architecture and parameters",
+        "file": "pages/claim-1-architecture-and-parameters/page.md",
+        "children": []
       }
     ]
   },
-  "agent_view_tokens": 3000,
-  "revision": "1784666338190516476"
+  "agent_view_tokens": 9079,
+  "revision": "1785188543917326000"
 }

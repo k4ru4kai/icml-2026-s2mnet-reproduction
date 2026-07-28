@@ -1,8 +1,8 @@
-# S2M-Net DRIVE Reproduction
+# S2M-Net Reproduction Study
 
-> **Work in progress.** This repository contains a controlled reproduction study.
-> The completed DRIVE results reported here are validation-only; no hidden-test
-> data were accessed and no universal claim verdict is implied.
+> **Project status as of 2026-07-28.** Experimental completion and scientific
+> claim verification are reported separately. No hidden-test data were
+> accessed, and no test result is reported.
 
 ## Paper
 
@@ -16,67 +16,89 @@ Medical Image Segmentation**
 - Reproduction logbook:
   [Hugging Face Space K4ru4k4i/eh48NIgu9z](https://huggingface.co/spaces/K4ru4k4i/eh48NIgu9z)
 
-## Reproduction objective
+## Study scope
 
-The primary experiment is a matched comparison of the released **Full Model**
-and the official **No-SSTM** ablation on the DRIVE retinal vessel segmentation
-dataset. Dataset split, preprocessing, augmentation, seeds, training budget,
-checkpoint selection, thresholding, and evaluation code are held constant.
+This repository combines controlled DRIVE experiments with executable
+architecture and claim audits. The upstream implementation is pinned and kept
+unchanged in `official_repo/`.
 
-## Completed DRIVE comparison
+## Completed validation work
+
+### Phase 2A
+
+The synthetic Full Model validation completed successfully: model
+construction, deterministic forward execution, finite gradients, and one
+diagnostic optimizer update all passed. This was infrastructure validation,
+not a dataset result.
+
+### DRIVE Full versus No-SSTM
 
 Six runs completed successfully: Full and No-SSTM for seeds 42, 7, and 123.
-Every run reached 100 epochs and 24,000 optimizer steps. The reported endpoint
-is the model-selected validation FOV macro hard Dice at threshold 0.5.
+Every run used batch size 2 and reached 100 epochs and 24,000 optimizer steps.
+The reported endpoint is model-selected validation supplied-FOV macro hard
+Dice at threshold 0.5.
 
-| Variant | Mean Dice | Sample SD |
-|---|---:|---:|
-| Full | 0.765522 | 0.003772 |
-| No-SSTM | 0.766222 | 0.005349 |
+| Variant | Validation Dice, mean ± sample SD |
+|---|---:|
+| Full | **0.765522 ± 0.003772** |
+| No-SSTM | **0.766222 ± 0.005349** |
 
-The paired Full minus No-SSTM differences were +0.006319 (seed 42),
--0.004371 (seed 7), and -0.004049 (seed 123), for a mean paired difference of
--0.000700. Under this protocol, the three-seed validation comparison does not
-show a stable Dice improvement from SSTM.
+The mean paired **Full − No-SSTM** difference is **−0.000700**. Under this
+limited protocol, the three-seed comparison does not show a stable SSTM Dice
+advantage.
 
 These results are limited to three paired seeds and four validation images.
 Checkpoint selection and reporting use the same validation set. No test metric
-or prediction was produced, and `hidden_test_accessed` remained false.
+or prediction was produced; every run records
+`hidden_test_accessed: false`. This result does not establish a universal
+paper-claim verdict.
 
-The full audit, including per-seed metrics, checkpoint selection, run
-validation, aggregate calculations, warnings, timing, and exact local artifact
-paths, is available in
-[`docs/drive_multiseed_report.md`](docs/drive_multiseed_report.md).
+See the [complete DRIVE multi-seed report](docs/drive_multiseed_report.md) for
+the per-seed metrics, checkpoint selection, run validation, warnings, timing,
+and exact artifact provenance.
 
-## Official code and reproduction code
+## Claim 1: architecture and parameter efficiency
+
+The [executable Claim 1 audit](repro/diagnostics/verify_claim1_architecture.py)
+passes. It verifies the canonical released S2M-Net build at 352 × 352 as
+**4,791,544 parameters** and confirms five encoder stages with channels
+**{24, 32, 64, 80, 128}**.
+
+The scientific verdict remains **Partially verified**. The architecture and
+exact released count are reproducible, but unresolved provenance for the
+paper's TransUNet and Swin-Unet comparison configurations prevents full
+verification of the parameter-efficiency ratios. Claim 1 may be revisited if
+new official materials become available.
+
+Evidence:
+
+- [Claim 1 parameter-count investigation](docs/claim1_parameter_count_investigation.md)
+- [Executable audit](repro/diagnostics/verify_claim1_architecture.py)
+- [Deterministic JSON result](results/audits/claim1_architecture_parameters.json)
+
+`Audit PASS` means the verification procedure passed; it does not mean every
+part of the scientific claim was reproduced.
+
+## Repository guide
 
 - `official_repo/` is the upstream implementation, retained as a Git submodule
   and pinned to commit
   `3ec59668ab9b438ab9b170306d29b01e9270fd5a`. It remains unmodified.
 - `repro/` contains reproduction-owned model variants, data utilities,
-  evaluation code, and diagnostics.
-- `configs/`, `scripts/`, and `tests/` contain reproduction-owned experiment
-  configuration, entry points, and validation tests.
+  experiment configuration, evaluation code, and diagnostics.
+- `scripts/` and `tests/` contain reproduction-owned entry points and
+  validation tests.
 - `results/` is reserved for curated tables and figures; large logs,
   checkpoints, datasets, and generated artifacts are not tracked by Git.
 - `.trackio/logbook/` contains the source for the public experiment logbook.
 
-The detailed protocol is documented in
-[`REPRODUCTION_PLAN.md`](REPRODUCTION_PLAN.md).
+The [historical reproduction plan](REPRODUCTION_PLAN.md) retains the original
+approval-gated protocol and now records execution deviations explicitly. The
+[public Trackio logbook](https://huggingface.co/spaces/K4ru4k4i/eh48NIgu9z)
+provides claim-oriented summaries.
 
-## Current status
+## Next investigation
 
-- Official source pinned and audited.
-- TensorFlow 2.15.1 environment validated with CUDA 12.2 and cuDNN 8.
-- Synthetic Full Model build, forward-pass, and one-step trainability
-  diagnostics completed.
-- DRIVE Full-versus-No-SSTM campaign completed for three predeclared seeds.
-- Validation evidence does not show a stable SSTM Dice advantage under the
-  adopted local protocol.
-- Hidden-test evaluation has not been performed.
-- The cause of the small parameter-count discrepancy between earlier synthetic
-  diagnostics and the DRIVE training configuration remains to be resolved
-  before finalizing the architectural parameter claim.
-
-The next phase is the architectural evidence audit for Claim 1, followed by
-any separately approved hidden-test or manuscript-faithful SSTM diagnostics.
+Claim 2—SSTM spectral-energy and computational-efficiency evidence—is the next
+active investigation. It is not presented here as completed or newly
+verified.

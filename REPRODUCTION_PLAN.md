@@ -1,9 +1,41 @@
 # S2M-Net reproduction plan (approval-gated)
 
-Status: the local environment and official-model smoke validation are complete.
-The `.venv` and public Trackio challenge logbook are configured. No dataset has
-been downloaded, no training or Hub Job has run, and no definitive empirical
-result or experiment artifact is available yet.
+> **Historical-plan note.** This document originated on 2026-07-17 as an
+> approval-gated proposal. Its planned protocol, resource estimates, and
+> approval boundaries are retained below for provenance; they must not be read
+> as a retrospective description of the work that was ultimately executed.
+
+## Execution status and deviations — 2026-07-28
+
+- Phase 2A synthetic validation is complete.
+- The actual DRIVE campaign used three paired seeds `{42, 7, 123}` for the
+  released Full S2M-Net and No-SSTM variants, producing six completed runs.
+- All six runs used batch size 2, 100 epochs, and 24,000 optimizer steps.
+- The reported results are validation-only, based on four validation images.
+  Hidden-test access remained disabled, and no test result was produced.
+- The actual run configuration, completed results, and deviations from this
+  original plan are documented in
+  [`docs/drive_multiseed_report.md`](docs/drive_multiseed_report.md).
+- Claim 1 is **Partially verified** through the executable architecture and
+  parameter-count audit in
+  [`repro/diagnostics/verify_claim1_architecture.py`](repro/diagnostics/verify_claim1_architecture.py).
+  The audit procedure passes; this does not make the complete scientific claim
+  fully verified.
+- Claim 2 remains the next investigation and is not marked as completed or
+  newly verified by this status update.
+
+The following planned steps were superseded or not executed:
+
+- the proposed 10-epoch, four-variant pilot in Section 7 was not followed as
+  written;
+- the five-seed set `{42, 123, 456, 789, 2024}`, batch size 8, 50,000-step
+  budget, and one-time hidden-test evaluation proposed in Sections 8–9 were
+  superseded by the three paired validation-only runs above;
+- no hidden-test evaluation was executed;
+- the planned K=16, paper-faithful `spatial_fft`, CHASE-DB fallback, and paid
+  Hub Job campaign were not executed as part of the completed DRIVE campaign.
+
+Sections 1–11 below preserve the original plan and its historical assumptions.
 
 ## 1. Source snapshot and provenance
 
