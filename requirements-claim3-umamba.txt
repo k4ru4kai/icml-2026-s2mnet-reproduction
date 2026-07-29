@@ -1,0 +1,21 @@
+# Isolated CPython 3.11 / CUDA 11.8 U-Mamba environment. Do not install into
+# the TensorFlow reproduction environment. Binary URLs avoid an unavailable
+# local nvcc compiler. The official model source is separately pinned by the
+# baselines/U-Mamba submodule gitlink.
+torch @ https://download.pytorch.org/whl/cu118/torch-2.0.1%2Bcu118-cp311-cp311-linux_x86_64.whl
+torchvision @ https://download.pytorch.org/whl/cu118/torchvision-0.15.2%2Bcu118-cp311-cp311-linux_x86_64.whl
+causal-conv1d @ https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.2.0.post2/causal_conv1d-1.2.0.post2%2Bcu118torch2.0cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+mamba-ssm @ https://github.com/state-spaces/mamba/releases/download/v1.2.0.post1/mamba_ssm-1.2.0.post1%2Bcu118torch2.0cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+dynamic-network-architectures==0.2.0
+numpy==1.26.4
+transformers==4.39.3
+tokenizers==0.15.2
+opencv-python==4.10.0.84
+opencv-python-headless==4.10.0.84
+Pillow==12.3.0
+PyYAML==6.0.2
+pytest==8.3.5
+pynvml==12.0.0
+
+# The source tree itself is pinned by the baselines/U-Mamba submodule gitlink.
+-e ./baselines/U-Mamba/umamba

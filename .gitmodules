@@ -1,3 +1,6 @@
 [submodule "official_repo"]
 	path = official_repo
 	url = https://github.com/sanaullah-ashfat/S2M-Net-Spectral-Spatial-Mixing-for-Medical-Segmentation.git
+[submodule "baselines/U-Mamba"]
+	path = baselines/U-Mamba
+	url = https://github.com/bowang-lab/U-Mamba
