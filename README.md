@@ -79,6 +79,37 @@ Evidence:
 `Audit PASS` means the verification procedure passed; it does not mean every
 part of the scientific claim was reproduced.
 
+## Claim 2: SSTM mechanism, spectral energy, and cost
+
+The scientific verdict is **Not verified**. The
+[executable Claim 2 audit](repro/diagnostics/verify_claim2_sstm.py) passes, but
+it shows that the released SSTM does not implement the centered spatial
+K×K truncation described by the paper:
+
+- the canonical configuration requests K=32, with effective values
+  **{32, 32, 32, 22, 11}** across the five stages;
+- `tf.signal.fft2d` is called directly on NHWC tensors, so the transformed axes
+  are width and channels rather than height and width;
+- the complex tensor is bilinearly resized instead of using `fftshift`,
+  centered cropping, zero-padding, and `ifftshift`;
+- the standard retained-subset energy ratio is therefore not defined for the
+  released forward path; and
+- the paper and released repository do not specify a reproducible matched
+  attention baseline or cost metric for the reported 63% reduction.
+
+A limited paper-intended diagnostic on four permitted DRIVE validation images
+exceeded 95% for raw images, but it does not verify the general claim and
+trained pre-SSTM features at stages 1–3 remained below 95%.
+
+Evidence:
+
+- [Complete Claim 2 investigation](docs/claim2_sstm_verification.md)
+- [Executable audit](repro/diagnostics/verify_claim2_sstm.py)
+- [Deterministic JSON result](results/audits/claim2_sstm_audit.json)
+
+As for Claim 1, `Audit PASS` describes the reproducibility procedure, not the
+scientific verdict.
+
 ## Repository guide
 
 - `official_repo/` is the upstream implementation, retained as a Git submodule
@@ -97,8 +128,7 @@ approval-gated protocol and now records execution deviations explicitly. The
 [public Trackio logbook](https://huggingface.co/spaces/K4ru4k4i/eh48NIgu9z)
 provides claim-oriented summaries.
 
-## Next investigation
+## Current status
 
-Claim 2—SSTM spectral-energy and computational-efficiency evidence—is the next
-active investigation. It is not presented here as completed or newly
-verified.
+Claims 1 and 2 now have explicit scientific verdicts and executable audits.
+No work on the remaining performance claims is implied by this status.

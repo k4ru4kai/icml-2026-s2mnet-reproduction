@@ -230,3 +230,13 @@ Claim 2 is not verified. The paper specifies a centered 32×32 spatial-frequency
 All scientific values and interpretations on this page are sourced from the
 completed local investigation:
 `docs/claim2_sstm_verification.md`.
+
+The public reproducibility package also includes:
+
+- `repro/diagnostics/verify_claim2_sstm.py`;
+- `tests/test_claim2_sstm_audit.py`; and
+- `results/audits/claim2_sstm_audit.json`.
+
+The executable audit reports `Audit PASS`; this validates the deterministic
+procedure, not the scientific claim. The scientific verdict remains
+**Not verified**.

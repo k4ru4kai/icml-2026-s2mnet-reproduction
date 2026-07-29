@@ -1,6 +1,7 @@
 # Claim 2 SSTM verification
 
-Date of local diagnostic investigation: 2026-07-27
+- Local diagnostic investigation: 2026-07-27
+- Executable reproducibility package added: 2026-07-28
 
 Canonical Claim 2:
 
@@ -11,8 +12,8 @@ Canonical Claim 2:
 
 ## Scope and safeguards
 
-This is a diagnostic investigation, not a training experiment and not a final
-verdict on Claim 2 as a whole.
+This is a diagnostic investigation, not a training experiment. The scientific
+verdict is kept separate from the technical result of the executable audit.
 
 - No model was trained or fine-tuned.
 - No dataset or checkpoint was downloaded.
@@ -20,12 +21,17 @@ verdict on Claim 2 as a whole.
 - Only the predeclared non-hidden DRIVE validation IDs 37–40 were read.
 - Existing selected Full checkpoints were restored read-only for
   inference-only feature inspection.
-- No project source, configuration, dataset, checkpoint, run, Claim 1 file,
-  Trackio page, or external service was modified.
-- Temporary diagnostic code and machine-readable output were kept outside the
-  repository at `/tmp/claim2_energy_diagnostics.py` and
+- During the original 2026-07-27 data-dependent diagnostic, no project source,
+  configuration, dataset, checkpoint, run, Claim 1 file, Trackio page, or
+  external service was modified.
+- The original 2026-07-27 diagnostic used temporary code and
+  machine-readable output outside the repository at
+  `/tmp/claim2_energy_diagnostics.py` and
   `/tmp/claim2_energy_diagnostics.json`.
-- The only repository file created by this investigation is this report.
+- On 2026-07-28, the non-private and deterministic parts of the investigation
+  were converted into the versioned executable audit
+  `repro/diagnostics/verify_claim2_sstm.py`, its tests, and a curated JSON
+  result. The original temporary files are not treated as public evidence.
 
 The released repository was clean at pinned commit
 `3ec59668ab9b438ab9b170306d29b01e9270fd5a`. The principal paper artifact was
@@ -34,6 +40,50 @@ the local nine-page arXiv v1 PDF
 `sources/alphaxiv-2601.01285v1.txt`. The released implementation and its
 documentation are not assumed to implement the paper equations; they are
 examined separately below.
+
+The public, version-pinned source corresponding to that local artifact is
+[arXiv v1 HTML](https://arxiv.org/html/2601.01285v1), especially Section 3.3
+and equations 4–8. The current arXiv record states that a later v2 withdrew the
+paper because it contains issues requiring revision. This audit continues to
+evaluate the challenge-pinned v1 artifact; the later withdrawal is provenance
+context, not a substitute for the evidence below.
+
+## Reproducibility package
+
+The public package now contains:
+
+- `repro/diagnostics/verify_claim2_sstm.py`: source/AST audit of the pinned
+  SSTM, effective-K trace, paper-intended energy function, optional
+  explicit-image energy analysis, and arithmetic cost checks;
+- `tests/test_claim2_sstm_audit.py`: six deterministic tests; and
+- `results/audits/claim2_sstm_audit.json`: the checked-in result without
+  private data or checkpoints.
+
+Run the public deterministic audit with:
+
+```bash
+python repro/diagnostics/verify_claim2_sstm.py
+python tests/test_claim2_sstm_audit.py -v
+```
+
+The image diagnostic accepts only explicitly named files:
+
+```bash
+python repro/diagnostics/verify_claim2_sstm.py \
+  --image /path/to/permitted/image_37.tif \
+  --image /path/to/permitted/image_38.tif \
+  --image /path/to/permitted/image_39.tif \
+  --image /path/to/permitted/image_40.tif \
+  --output /tmp/claim2_drive_energy.json
+```
+
+Directories are deliberately unsupported so the audit cannot silently scan a
+dataset or access hidden-test images. The checked-in JSON leaves this optional
+field null because DRIVE images and checkpoints are not versioned. Therefore
+the 2026-07-27 raw-image and trained-feature values remain local
+data-dependent evidence; the public package independently reproduces the
+mechanism trace and cost arithmetic and provides the exact raw-image
+calculation for permitted inputs.
 
 ## 1. Claim decomposition
 
@@ -644,4 +694,12 @@ whole-model, runtime, and asymptotic calculations do not recover 63%.
 Constructing a new attention module would be arbitrary and was deliberately
 not done.
 
-No final verdict is assigned to Claim 2 as a whole in this report.
+### 9.4 Overall Claim 2
+
+**Verdict: Not verified.**
+
+The executable audit reports `Audit PASS`, meaning that the deterministic
+verification procedure and its invariants pass. It does not mean the
+scientific claim passes. The component evidence above contradicts the released
+implementation-level mechanism and does not reproduce either the general
+energy threshold or the 63% cost reduction.

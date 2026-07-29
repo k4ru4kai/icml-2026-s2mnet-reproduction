@@ -21,8 +21,15 @@
   [`repro/diagnostics/verify_claim1_architecture.py`](repro/diagnostics/verify_claim1_architecture.py).
   The audit procedure passes; this does not make the complete scientific claim
   fully verified.
-- Claim 2 remains the next investigation and is not marked as completed or
-  newly verified by this status update.
+- Claim 2 is now complete with a scientific verdict of **Not verified**. The
+  versioned audit at
+  [`repro/diagnostics/verify_claim2_sstm.py`](repro/diagnostics/verify_claim2_sstm.py)
+  passes its deterministic mechanism and arithmetic checks; this technical
+  `Audit PASS` does not mean that the scientific claim passes. The complete
+  evidence and limitations are recorded in
+  [`docs/claim2_sstm_verification.md`](docs/claim2_sstm_verification.md), with
+  machine-readable output in
+  [`results/audits/claim2_sstm_audit.json`](results/audits/claim2_sstm_audit.json).
 
 The following planned steps were superseded or not executed:
 

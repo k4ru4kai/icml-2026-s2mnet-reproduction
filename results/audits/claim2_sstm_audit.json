@@ -1,0 +1,223 @@
+{
+  "audit": "claim2_sstm_mechanism_energy_cost",
+  "claim": "SSTM uses a truncated 2D FFT with K=32, retains more than 95% spectral energy, and reduces computational cost by 63% relative to full spatial attention.",
+  "component_verdicts": {
+    "63_percent_cost_reduction": "not verified; metric and matched attention baseline absent",
+    "more_than_95_percent_energy": "not verified for released SSTM; data-dependent diagnostic not run",
+    "truncated_spatial_fft_k32": "paper specification partially verified; contradicted by released forward implementation"
+  },
+  "cost": {
+    "alternative_matches_63_percent": {
+      "32_vs_unexplained_256_coefficient_count": false,
+      "k32_square_vs_352_square_coefficient_count": false,
+      "paper_reported_4_2x_speedup_as_reduction": false,
+      "readme_whole_model_flops_11_2_vs_45_2": false,
+      "readme_whole_model_runtime_10_1_vs_42_3": false
+    },
+    "alternative_reductions": {
+      "32_vs_unexplained_256_coefficient_count": 0.875,
+      "k32_square_vs_352_square_coefficient_count": 0.9917355371900827,
+      "paper_reported_4_2x_speedup_as_reduction": 0.7619047619047619,
+      "readme_whole_model_flops_11_2_vs_45_2": 0.752212389380531,
+      "readme_whole_model_runtime_10_1_vs_42_3": 0.7612293144208038
+    },
+    "alternatives_are_not_like_for_like_reproductions": true,
+    "claim_reproducible_from_released_materials": false,
+    "claim_target_reduction": 0.63,
+    "matched_attention_baseline_specified": false,
+    "named_cost_metric_specified": false,
+    "unit_coefficient_asymptotic_aggregate_reduction": 0.9978229065433003,
+    "unit_coefficient_asymptotic_stage_proxy": [
+      {
+        "shape_hwc": [
+          176,
+          176,
+          24
+        ],
+        "stage": 1,
+        "unit_coefficient_proxy_reduction": 0.9987435800866066
+      },
+      {
+        "shape_hwc": [
+          88,
+          88,
+          32
+        ],
+        "stage": 2,
+        "unit_coefficient_proxy_reduction": 0.9941995269579965
+      },
+      {
+        "shape_hwc": [
+          44,
+          44,
+          64
+        ],
+        "stage": 3,
+        "unit_coefficient_proxy_reduction": 0.9613022400633913
+      },
+      {
+        "shape_hwc": [
+          22,
+          22,
+          80
+        ],
+        "stage": 4,
+        "unit_coefficient_proxy_reduction": 0.8162833404188541
+      },
+      {
+        "shape_hwc": [
+          11,
+          11,
+          128
+        ],
+        "stage": 5,
+        "unit_coefficient_proxy_reduction": -0.11503192758078162
+      }
+    ]
+  },
+  "energy": {
+    "explicit_image_diagnostic": null,
+    "paper_intended_formula": "sum(abs(center_crop_k(fftshift(fft2_hw(x))))**2) / sum(abs(fftshift(fft2_hw(x)))**2)",
+    "released_forward_retained_subset_defined": false,
+    "synthetic_self_checks": {
+      "checkerboard_64x64_k32": 0.0,
+      "checks": {
+        "constant_dc_energy_is_retained": true,
+        "high_frequency_checkerboard_is_not_95_percent_retained": true
+      },
+      "constant_64x64_k32": 1.0,
+      "self_check_pass": true
+    }
+  },
+  "mechanism": {
+    "audit_pass": true,
+    "canonical_input_size": 352,
+    "checks": {
+      "calls_fft2d": true,
+      "calls_ifft2d": true,
+      "contains_no_fft_shift_or_zero_pad": true,
+      "creates_real_frequency_weights": true,
+      "default_k_is_32": true,
+      "does_not_slice_fft_tensor_X": true,
+      "does_not_transpose_before_fft": true,
+      "effective_k_matches_32_32_32_22_11": true,
+      "selective_enabled_only_stages_3_to_5": true,
+      "selective_path_does_not_use_state_dim": true,
+      "selective_path_uses_dense_channel_projection": true,
+      "spectral_enabled_all_five_stages": true,
+      "uses_four_bilinear_resize_calls": true
+    },
+    "configured_k": 32,
+    "fft_call_rank4_layout": "B,H,W,C",
+    "literal_retained_subset_in_released_path": false,
+    "source": {
+      "blocks_path": "official_repo/s2mnet/models/blocks.py",
+      "blocks_sha256": "1cb072cb6abfc6e4ec7a201a15d1cd123f249bdf320b0cadd878493a8d6069d6",
+      "default_config_path": "official_repo/configs/default.yaml",
+      "default_config_sha256": "08ce1c7d52a79d3e584868685aefb6a970c0746f48d18d4e018fd40cda430cb6",
+      "upstream_commit": "3ec59668ab9b438ab9b170306d29b01e9270fd5a"
+    },
+    "stage_records": [
+      {
+        "configured_k": 32,
+        "effective_k": 32,
+        "input_shape_hwc": [
+          176,
+          176,
+          24
+        ],
+        "operational_resampled_shape_hwc": [
+          32,
+          32,
+          24
+        ],
+        "paper_crop_coefficient_fraction": 0.03305785123966942,
+        "selective_branch": false,
+        "spectral_branch": true,
+        "stage": 1
+      },
+      {
+        "configured_k": 32,
+        "effective_k": 32,
+        "input_shape_hwc": [
+          88,
+          88,
+          32
+        ],
+        "operational_resampled_shape_hwc": [
+          32,
+          32,
+          32
+        ],
+        "paper_crop_coefficient_fraction": 0.1322314049586777,
+        "selective_branch": false,
+        "spectral_branch": true,
+        "stage": 2
+      },
+      {
+        "configured_k": 32,
+        "effective_k": 32,
+        "input_shape_hwc": [
+          44,
+          44,
+          64
+        ],
+        "operational_resampled_shape_hwc": [
+          32,
+          32,
+          64
+        ],
+        "paper_crop_coefficient_fraction": 0.5289256198347108,
+        "selective_branch": true,
+        "spectral_branch": true,
+        "stage": 3
+      },
+      {
+        "configured_k": 32,
+        "effective_k": 22,
+        "input_shape_hwc": [
+          22,
+          22,
+          80
+        ],
+        "operational_resampled_shape_hwc": [
+          22,
+          22,
+          80
+        ],
+        "paper_crop_coefficient_fraction": 1.0,
+        "selective_branch": true,
+        "spectral_branch": true,
+        "stage": 4
+      },
+      {
+        "configured_k": 32,
+        "effective_k": 11,
+        "input_shape_hwc": [
+          11,
+          11,
+          128
+        ],
+        "operational_resampled_shape_hwc": [
+          11,
+          11,
+          128
+        ],
+        "paper_crop_coefficient_fraction": 1.0,
+        "selective_branch": true,
+        "spectral_branch": true,
+        "stage": 5
+      }
+    ],
+    "tensorflow_fft2d_innermost_axes": [
+      "W",
+      "C"
+    ]
+  },
+  "procedure": {
+    "audit_pass": true,
+    "meaning": "The deterministic verification procedure passed. This is not a PASS verdict for the scientific claim."
+  },
+  "schema_version": 1,
+  "scientific_verdict": "Not verified"
+}
